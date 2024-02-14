@@ -14,7 +14,7 @@ Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de
 - [Sergio Cáceres](https://github.com/Eracres)
 - [Marcos Almorox](https://github.com/malmorox)
 
-### 🛠️ <span style="color:#A8D6FF"> Tutorial de instalación </span> [Angular](docs/Instalar_Angular.md)
+### 🛠️ <span style="color:#A8D6FF"> Tutorial de instalación </span> [Angular](docs/angular-instalation.md)
 
 ## 🛸 Hitos del proyecto
 
