@@ -1,5 +1,5 @@
 # BluePrint Project
-Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de la Cierva.
+Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de la Cierva. Se trata de una plataforma digital de consultas, que permite centralizar todo lo relativo a los sistemas de carteras de inversiones y planes de pensiones de empleo. Esta va a permitir tanto la carga de toda la información que disponen las entidades financieras sobre las aportaciones realizadas por los promotores para cada uno de sus empleados.
 
 ## 💻 Tecnologías utilizadas:
 ![Angular](https://img.shields.io/badge/angular-%2307405e.svg?style=for-the-badge&logo=angular&logoColor=white)
@@ -14,13 +14,11 @@ Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de
 - [Sergio Cáceres](https://github.com/Eracres)
 - [Marcos Almorox](https://github.com/malmorox)
 
-# Tutorial instalacion Angular
+### 🛠️ <span style="color:#A8D6FF"> Tutorial de instalación </span> [Angular](docs/Instalar_Angular.md)
 
-[Angular](docs/Instalar_Angular.md)
+## 🛸 Hitos del proyecto
 
-# Hitos del proyecto
-
-**SPRINT 1:** Spring Planning 1 - Daily Scrum 1 - Review 1 - Retrospective 
+**<span style="color:#BDC7FF">SPRINT 1</span>:** Spring Planning 1 - Daily Scrum 1 - Review 1 - Retrospective 
 - 15 de febrero
 
   BACKLOG
@@ -28,7 +26,7 @@ Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de
    - [ ] Análisis del producto. Diseño de la solución adoptada.
    - [ ] Diseño del MVP
          
-**SPRINT 2:** Spring Planning 2 - Daily Scrum 2 - Review 2 - Retrospective
+**<span style="color:#BDC7FF">SPRINT 2</span>:** Spring Planning 2 - Daily Scrum 2 - Review 2 - Retrospective
 - 19 de febrero
 
   BACKLOG
@@ -36,7 +34,7 @@ Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de
    - [ ] Implementación
    - [ ] Pruebas
 
-**SPRINT 3:** Spring Planning 3 - Daily Scrum 3 - Review 3 - Retrospective
+**<span style="color:#BDC7FF">SPRINT 3</span>:** Spring Planning 3 - Daily Scrum 3 - Review 3 - Retrospective
 - 20 de febrero
 
   BACKOG
@@ -44,7 +42,7 @@ Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de
    - [ ] Implementación
    - [ ] Pruebas
         
-**SPRINT 4:** Spring Planning 4 - Daily Scrum 4 - Review 4 - Retrospective
+**<span style="color:#BDC7FF">SPRINT 4</span>:** Spring Planning 4 - Daily Scrum 4 - Review 4 - Retrospective
 - 26 de febrero
 
   BACKOG
