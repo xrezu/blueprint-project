@@ -22,7 +22,7 @@ Proyecto de Desarrollo Web en Entorno Cliente, hecho por alumnos del IES Juan de
 - 15 de febrero
 
   BACKLOG
-   - [ ] Elección Angular o Vue. Proceso de instalación y uso básico de ejemplo.
+   - [x] Elección Angular o Vue. Proceso de instalación y uso básico de ejemplo.
    - [ ] Análisis del producto. Diseño de la solución adoptada.
    - [ ] Diseño del MVP
          
