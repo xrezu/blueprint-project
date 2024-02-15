@@ -1,0 +1,42 @@
+{
+  "contributions": [
+    {
+      "userId": "1",
+      "contributions": [
+        {
+          "promoterId": "p1",
+          "financialEntityId": "f1",
+          "totalAmount": 10000,
+          "monthlyContributions": 500,
+          "date": "2024-01-15"
+        },
+        {
+          "promoterId": "p2",
+          "financialEntityId": "f2",
+          "totalAmount": 15000,
+          "monthlyContributions": 750,
+          "date": "2024-02-15"
+        }
+      ]
+    },
+    {
+      "userId": "2",
+      "contributions": [
+        {
+          "promoterId": "p1",
+          "financialEntityId": "f1",
+          "totalAmount": 20000,
+          "monthlyContributions": 1000,
+          "date": "2024-03-15"
+        },
+        {
+          "promoterId": "p2",
+          "financialEntityId": "f2",
+          "totalAmount": 25000,
+          "monthlyContributions": 1250,
+          "date": "2024-04-15"
+        }
+      ]
+    }
+  ]
+}
