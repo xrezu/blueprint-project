@@ -1,23 +1,18 @@
-// src/app/app.module.ts
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { DataService } from './services/data.service';
-// Other imports...
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { FooterComponent } from './shared/footer/footer.component';
+
 
 @NgModule({
   declarations: [
-    // Your components...
   ],
   imports: [
-    HttpClientModule,
-    // Other modules...
+    AppComponent,
+    BrowserModule,
+    FooterComponent
   ],
-  providers: [
-    DataService
-    // Other services...
-  ],
-  bootstrap: [
-    // Your main component...
-  ]
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
