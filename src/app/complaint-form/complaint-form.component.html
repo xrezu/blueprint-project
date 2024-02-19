@@ -1,0 +1,21 @@
+<div class="max-w-md mx-auto bg-white shadow-md rounded-md p-8 mt-6">
+  <h2 class="text-xl font-semibold mb-4">Formulario de Reclamaciones y Peticiones</h2>
+  <form (ngSubmit)="submitForm()">
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+      <input type="text" id="name" ngModel name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Juan Pérez">
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+      <input type="email" id="email" ngModel name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="juan.perez@example.com">
+    </div>
+    <div class="mb-4">
+      <label for="complaint" class="block text-sm font-medium text-gray-700">Reclamación o Petición</label>
+      <textarea id="complaint" ngModel name="complaint" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Describe tu reclamación o petición aquí..."></textarea>
+    </div>
+    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      Enviar
+    </button>
+  </form>
+</div>
+
