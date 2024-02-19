@@ -7,6 +7,7 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private loggedInStatus = false;
 
@@ -17,7 +18,7 @@ export class AuthService {
     return this.loggedInStatus;
   }
 
-  // Función para iniciar sesión, ahora utilizando una llamada HTTP al backend
+  // Función para iniciar sesión
   login(username: string, password: string): Observable<User> {
     return this.http.post<User>('/api/login', {username, password})
       .pipe(
@@ -35,12 +36,11 @@ export class AuthService {
 
   // Función para cerrar sesión
   logout(): void {
-    // Eliminar el usuario del almacenamiento local para cerrar sesión
     localStorage.removeItem('currentUser');
     this.loggedInStatus = false;
   }
 
-  // Función para registrar un nuevo usuario (añadir lógica correspondiente según el backend)
+  // Función para registrar un nuevo usuario
   register(user: User): Observable<User> {
     // Asumiendo que la API del backend tiene una ruta '/api/register' para el registro
     return this.http.post<User>('/api/register', user);

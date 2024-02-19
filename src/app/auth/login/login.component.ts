@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '@/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,19 +7,26 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  username: string | undefined;
+  password: string | undefined;
+  errorMessage: string | undefined;
 
   constructor(private authService: AuthService) {}
 
   onLogin(): void {
+    // No se han introducido datos en el login, por lo que saltará un mensaje de error
+    if (!this.username || !this.password) {
+      this.errorMessage = 'Por favor, introduzca sus datos';
+      return;
+    }
+
     this.authService.login(this.username, this.password).subscribe(user => {
       if (user) {
         // Usuario autenticado con éxito
         console.log('Login exitoso', user);
       } else {
         // Falló la autenticación
-        console.error('Credenciales incorrectas');
+        this.errorMessage = 'Credenciales incorrectas';
       }
     });
   }
