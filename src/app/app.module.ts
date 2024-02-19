@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
-//import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
 
 @NgModule({
   declarations: [
-    //HeaderComponent,
-    FooterComponent
+    AppComponent,
+    ComplaintFormComponent,
+    // Declara otros componentes aquí
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    AppComponent
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
-  providers: []
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
