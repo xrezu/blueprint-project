@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';  
+import { LoginComponent } from './auth/login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { PromoterComponent } from './promoter/promoter.component';
@@ -25,17 +25,18 @@ const routes: Routes = [
 
 // ...
 @NgModule({
-  
+
   declarations: [
-    
+    AppComponent,
+    FooterComponent
   ],
   imports: [
     AppComponent,
-    BrowserModule,
-    FooterComponent
+    BrowserModule
   ],
   providers: [],
-  // bootstrap: [AppComponent]
+  bootstrap: [
+  ]
 })
 export class AppModule { 
   constructor() {
