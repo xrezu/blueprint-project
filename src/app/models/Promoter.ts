@@ -4,6 +4,4 @@ export class Promoter extends User {
   constructor(username: string) {
     super(username, UserRole.PROMOTER);
   }
-
-  // Métodos específicos
 }
