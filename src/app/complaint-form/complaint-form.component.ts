@@ -1,27 +1,24 @@
 import { Component } from '@angular/core';
+  @Component({
+    selector: 'app-complaint-form',
+    templateUrl: './complaint-form.component.html',
+    styleUrls: ['./complaint-form.component.css']
+  })
+  export class ComplaintFormComponent {
+    constructor() { }
+    
+    submitForm(form: any) {
+      const formData = form.value;
 
-@Component({
-  selector: 'app-complaint-form',
-  templateUrl: './complaint-form.component.html',
-  styleUrls: ['./complaint-form.component.css']
-})
-export class ComplaintFormComponent {
+      const currentComplaints = JSON.parse(localStorage.getItem('complaints') || '[]');
 
-  constructor() { }
+      currentComplaints.push(formData);
 
-  submitForm() {
-    // Aquí recogerías los datos del formulario
-    const formData = {
-      name: '', // Sustituye con el valor real
-      email: '', // Sustituye con el valor real
-      complaint: '' // Sustituye con el valor real
-    };
+      localStorage.setItem('complaints', JSON.stringify(currentComplaints));
 
-    // Simulación de envío de datos al Local Storage
-    const complaints = JSON.parse(localStorage.getItem('complaints') || '[]');
-    complaints.push(formData);
-    localStorage.setItem('complaints', JSON.stringify(complaints));
-
-    console.log('Complaint submitted:', formData);
-  }
+      console.log('Form Data: ', formData);
+      console.log('All Complaints: ', currentComplaints);
+      
+      form.reset();
+    }
 }
