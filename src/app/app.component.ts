@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MainComponent } from "./components/main/main.component";
-import { HeaderComponent } from "./shared/header/header.component";
-import { FooterComponent } from "./shared/footer/footer.component";
+import { RouterModule } from '@angular/router'; // Importa RouterModule si vas a usar <router-outlet>
+
+import { HeaderComponent } from './shared/header/header.component';
+import { MainComponent } from './components/main/main.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent],
+  imports: [
+    // Importa aquí tus componentes standalone y RouterModule si es necesario
+    RouterModule, // Sólo si utilizas <router-outlet> en app.component.html
+    HeaderComponent,
+    MainComponent,
+    FooterComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
-  title = 'blueprint-project';
+  title = 'Tu Proyecto Angular';
 }
-

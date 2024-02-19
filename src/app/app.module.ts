@@ -1,45 +1,35 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+
+import { RouterModule, Routes } from '@angular/router';
+
+
 import { LoginComponent } from './auth/login/login.component';
 import { AdminComponent } from './admin/admin.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { PromoterComponent } from './promoter/promoter.component';
 import { CitizenComponent } from './citizen/citizen.component';
 import { FinantialEntityComponent } from './finantial-entity/finantial-entity.component';
 
-const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'user', component: PromoterComponent },
-  { path: 'user', component: CitizenComponent },
-  { path: 'user', component: FinantialEntityComponent },
+  const routes: Routes = [
+    // Nota: La propiedad 'imports' en las rutas es utilizada para componentes standalone en Angular 14+
+    { path: 'login', component: LoginComponent },
+    { path: 'admin', component: AdminComponent },
+    // Asegúrate de tener rutas únicas para cada tipo de usuario
+    { path: 'promoter', component: PromoterComponent },
+    { path: 'citizen', component: CitizenComponent },
+    { path: 'financial-entity', component: FinantialEntityComponent },
+    
+    // Redirige a login por defecto
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+  ];
 
+  @NgModule({
+    imports: [
+      BrowserModule,
+      RouterModule.forRoot(routes), // Configura tus rutas aquí
+    ],
+    bootstrap: [AppComponent] // Bootstrap con AppComponent
+  })
+  export class AppModule { }
 
-  
-  // Redirige a login por defecto
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  // Agrega otras rutas aquí
-];
-
-// ...
-@NgModule({
-
-  declarations: [
-    AppComponent,
-    FooterComponent
-  ],
-  imports: [
-    AppComponent,
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [
-  ]
-})
-export class AppModule { 
-  constructor() {
-    bootstrapApplication(AppComponent);
-  }
-}
