@@ -1,12 +1,19 @@
+// En tu archivo app.module.ts
+
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-
-
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from '../app.component';
+import { FooterComponent } from '../shared/footer/footer.component'; 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AppComponent,
+    FooterComponent 
+  ],
   imports: [
-    CommonModule
-  ]
+    BrowserModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
-export class ViewsModule { }
+export class AppModule { }
+
