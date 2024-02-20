@@ -10,6 +10,7 @@ app.use(express.json());
 const PORT = 3000;
 const claimsFilePath = path.join(__dirname, 'src/assets/json/claims.json');
 
+// Rutas de la API
 app.get('/claims', (req: Request, res: Response) => {
     fs.readFile(claimsFilePath, { encoding: 'utf-8' }, (err, data) => {
         if (err) {
@@ -34,6 +35,15 @@ app.post('/claims', (req: Request, res: Response) => {
             res.status(201).json({ message: 'Claim added successfully' });
         });
     });
+});
+
+// Servir archivos estáticos de Angular
+const angularDistPath = path.join(__dirname, '../dist/mi-app-angular');
+app.use(express.static(angularDistPath));
+
+// Fallback para SPA
+app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.join(angularDistPath, 'index.html'));
 });
 
 app.listen(PORT, () => {
