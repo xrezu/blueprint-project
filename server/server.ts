@@ -42,7 +42,7 @@ app.post('/claims', (req: Request, res: Response) => {
 });
 
 // Directorio donde se encuentran los archivos estáticos de Angular
-const angularDistPath = path.resolve(__dirname, '../../dist/blueprint-project');
+const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
 
 // Servir archivos estáticos de Angular
 app.use(express.static(angularDistPath));
