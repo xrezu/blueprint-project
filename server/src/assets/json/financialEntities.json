@@ -1,0 +1,14 @@
+{
+  "financialEntities": [
+    {
+      "id": "f1",
+      "name": "BBVA",
+      "contactEmail": "info@bbva.com"
+    },
+    {
+      "id": "f2",
+      "name": "Santander",
+      "contactEmail": "info@santander.com"
+    }
+  ]
+}

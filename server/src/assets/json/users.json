@@ -1,0 +1,60 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "citizen_juan",
+      "password": "juan123",
+      "name": "Juan Pérez",
+      "role": "citizen",
+      "email": "juan.perez@example.com"
+    },
+    {
+      "id": "2",
+      "username": "citizen_maria",
+      "password": "maria123",
+      "name": "María Gómez",
+      "role": "citizen",
+      "email": "maria.gomez@example.com"
+    },
+    {
+      "id": "3",
+      "username": "promoter_xyz",
+      "password": "xyz123",
+      "name": "Empresa XYZ",
+      "role": "promoter",
+      "email": "contacto@empresaxyz.com"
+    },
+    {
+      "id": "4",
+      "username": "promoter_abc",
+      "password": "abc123",
+      "name": "Empresa ABC",
+      "role": "promoter",
+      "email": "contacto@empresaabc.com"
+    },
+    {
+      "id": "5",
+      "username": "finentity_bbva",
+      "password": "bbva123",
+      "name": "BBVA",
+      "role": "financialEntity",
+      "email": "info@bbva.com"
+    },
+    {
+      "id": "6",
+      "username": "finentity_santander",
+      "password": "santander123",
+      "name": "Santander",
+      "role": "financialEntity",
+      "email": "info@santander.com"
+    },
+    {
+      "id": "7",
+      "username": "admin_master",
+      "password": "admin123",
+      "name": "Admin",
+      "role": "admin",
+      "email": "admin@example.com"
+    }
+  ]
+}
