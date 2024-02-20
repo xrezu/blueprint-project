@@ -29,10 +29,14 @@ interface FinancialEntity {
 export class DataService {
 
   constructor(private http: HttpClient) { }
+  private apiUrl = 'http://localhost:3000/api';
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('/assets/data/users.json');
   }
+  // getUsers(): Observable<User[]> {
+  //   return this.http.get<User[]>(`${this.apiUrl}/users`); // Ajusta la llamada para usar el endpoint del servidor
+  // }
 
   getPromoters(): Observable<Promoter[]> {
     return this.http.get<Promoter[]>('/assets/data/promoters.json');
