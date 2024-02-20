@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
 // Importaciones de otros componentes...
+
 
 @NgModule({
   declarations: [
@@ -15,8 +17,10 @@ import { LoginComponent } from './auth/login/login.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ComplaintFormComponent,
 
   ],
+  exports: [ComplaintFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

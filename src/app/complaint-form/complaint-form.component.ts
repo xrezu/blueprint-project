@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
   @Component({
     selector: 'app-complaint-form',
+    standalone: true,
     templateUrl: './complaint-form.component.html',
-    styleUrls: ['./complaint-form.component.css']
+    styleUrls: ['./complaint-form.component.css'],
+    imports: [FormsModule]
   })
   export class ComplaintFormComponent {
     constructor() { }
