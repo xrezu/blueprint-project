@@ -1,4 +1,3 @@
-// app.component.ts
 import { Component } from '@angular/core';
 import { HeaderComponent } from './shared/header/header.component';
 import { MainComponent } from './components/main/main.component';
@@ -11,7 +10,8 @@ import { FooterComponent } from './shared/footer/footer.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppModule { }
 export class AppComponent {
   title = 'app';
 }
+
+
