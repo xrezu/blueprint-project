@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
+import { LoginComponent } from '@/app/auth/login/login.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  imports: [LoginComponent]
 })
-export class HeaderComponent {}
+
+export class HeaderComponent {
+
+
+}

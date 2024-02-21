@@ -17,7 +17,7 @@ import { ComplaintFormComponent } from './complaint-form/complaint-form.componen
     ComplaintFormComponent,
 
   ],
-  exports: [ComplaintFormComponent],
+  exports: [ComplaintFormComponent, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

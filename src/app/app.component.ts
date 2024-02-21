@@ -11,7 +11,7 @@ import { FooterComponent } from './shared/footer/footer.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Blueprint Proyect';
 }
 
 
