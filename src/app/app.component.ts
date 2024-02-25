@@ -7,7 +7,12 @@ import { CitizenComponent } from './components/citizen/citizen.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, MainComponent, CitizenComponent, FooterComponent],
+  imports: [
+    HeaderComponent,
+    MainComponent,
+    FooterComponent,
+    CitizenComponent
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

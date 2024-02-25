@@ -1,29 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service'; // Asegúrate de que la ruta de importación sea correcta
+import { CommonModule } from '@angular/common';
+import { DataService } from '../../services/data.service';
+import { UserContribution } from '../../models/contributions.interface';
+
 
 @Component({
   selector: 'app-citizen',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './citizen.component.html',
   styleUrls: ['./citizen.component.css']
 })
 export class CitizenComponent implements OnInit {
-  datosCiudadano: any = null;
+  contributions: UserContribution[] = [];
 
   constructor(private dataService: DataService) { }
 
-  ngOnInit(): void {
-    this.cargarDatos();
+  ngOnInit() {
+    this.loadContributions();
   }
 
-  cargarDatos(): void {
-    const url = 'https://api.miservidor.com/datos-ciudadano'; // Reemplaza con la URL real de tu API
-    this.dataService.getUsers().subscribe({
-      next: (datos) => {
-        this.datosCiudadano = datos;
+  loadContributions(): void {
+    this.dataService.getContributions().subscribe({
+      next: (response) => {
+        this.contributions = response.contributions;
       },
-      error: (error) => console.error('Error al obtener datos:', error),
-      complete: () => console.log('Petición de datos del ciudadano completada')
+      error: (error) => console.error('Error al obtener las contribuciones:', error)
     });
   }
 }

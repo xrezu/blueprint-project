@@ -21,6 +21,5 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent
   ],
   exports: [ComplaintFormComponent],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }

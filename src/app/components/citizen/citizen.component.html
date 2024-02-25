@@ -15,7 +15,16 @@
     </div>
     <div class="subheader-main-content">
         <h3 class="subheader-main-title">
-            <!-- Aquí se genera el titulo del usuario -->
+            Aportaciones
         </h3>
+        <div *ngFor="let user of contributions">
+            <h3>Contribuciones del Usuario {{ user.userId }}</h3>
+            <div *ngFor="let contribution of user.contributions">
+                <p>Entidad Financiera: {{ contribution.financialEntityId }}</p>
+                <p>Monto Total: {{ contribution.totalAmount | currency }}</p>
+                <p>Aportaciones Mensuales: {{ contribution.monthlyContributions | currency }}</p>
+                <p>Fecha: {{ contribution.date }}</p>
+            </div>
+        </div>
     </div>
 </main>
