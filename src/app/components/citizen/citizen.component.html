@@ -1,7 +1,7 @@
 <main class="main-content">
     <div class="header-main-content">
         <h2 class="header-main-title">
-            <!-- Aquí se genera el nombre del tipo de usuario -->
+            <!-- Aquí se genera el título del tipo de operación-->
         </h2>
         <span class="header-main-user-type">
             <!-- Aquí se genera el nombre del tipo de usuario -->
@@ -15,7 +15,7 @@
     </div>
     <div class="subheader-main-content">
         <h3 class="subheader-main-title">
-            Aportaciones
+            <!-- Aquí se genera el subtítulo del tipo de operación -->
         </h3>
         <div *ngFor="let user of contributions">
             <h3>Contribuciones del Usuario {{ user.userId }}</h3>
@@ -27,4 +27,31 @@
             </div>
         </div>
     </div>
+    <table class="table-main-content">
+        <thead class="table-main-header-transactions-titles">
+            <!--
+                Aquí se generán los títulos de la cabecera de la tabla
+
+                <th class="table-main-header-title">título 1</th>
+                <th class="table-main-header-title">título 2</th>
+                <th class="table-main-header-title">título 3</th>
+            -->
+        </thead>
+        <tbody class="table-main-transactions-content">
+            <!--
+                Aquí se generán los movimientos de la tabla
+
+                <tr class="table-main-transaction">
+                    <td class="table-main-data">Dato 1</td>
+                    <td class="table-main-data">Dato 2</td>
+                    <td class="table-main-data">Dato 3</td>
+                </tr>
+                <tr class="table-main-transaction">
+                    <td class="table-main-data">Dato 1</td>
+                    <td class="table-main-data">Dato 2</td>
+                    <td class="table-main-data">Dato 3</td>
+                </tr>
+            -->
+        </tbody>
+    </table>
 </main>
