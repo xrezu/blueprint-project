@@ -1,28 +1,39 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
-  @Component({
-    selector: 'app-complaint-form',
-    standalone: true,
-    templateUrl: './complaint-form.component.html',
-    styleUrls: ['./complaint-form.component.css'],
-    imports: [FormsModule]
-  })
-  export class ComplaintFormComponent {
-    constructor() { }
-    
-    submitForm(form: any) {
+@Component({
+  selector: 'app-complaint-form',
+  standalone: true,
+  templateUrl: './complaint-form.component.html',
+  styleUrls: ['./complaint-form.component.css'],
+  imports: [FormsModule]
+})
+export class ComplaintFormComponent {
+  // Define la URL del endpoint del servidor para enviar las reclamaciones
+  private complaintsUrl = 'http://localhost:3000/claims';
+
+  // Inyecta el HttpClient
+  constructor(private http: HttpClient) { }
+  
+  submitForm(form: NgForm) {
+    // Verifica si el formulario es válido
+    if (form.valid) {
       const formData = form.value;
 
-      const currentComplaints = JSON.parse(localStorage.getItem('complaints') || '[]');
-
-      currentComplaints.push(formData);
-
-      localStorage.setItem('complaints', JSON.stringify(currentComplaints));
-
-      console.log('Form Data: ', formData);
-      console.log('All Complaints: ', currentComplaints);
-      
-      form.reset();
+      // Usa HttpClient para enviar los datos del formulario al servidor
+      this.http.post(this.complaintsUrl, formData).subscribe({
+        next: (response) => {
+          console.log('Form Data submitted: ', formData);
+          console.log('Server Response: ', response);
+          form.reset();  
+        },
+        error: (error) => {
+          console.error('There was an error!', error);
+        }
+      });
+    } else {
+      console.error('Form is not valid');
     }
+  }
 }
