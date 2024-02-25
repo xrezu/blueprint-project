@@ -3,21 +3,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
+import { AuthModule } from './auth/auth.module';
 import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
+import { SharedModule } from './shared/shared.module';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    // Otros componentes declarados aquí...
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    SharedModule,
     ComplaintFormComponent,
-
   ],
-  exports: [ComplaintFormComponent, LoginComponent],
-  bootstrap: [AppComponent]
+  exports: [ComplaintFormComponent, ],
+  bootstrap: []
 })
 export class AppModule { }
