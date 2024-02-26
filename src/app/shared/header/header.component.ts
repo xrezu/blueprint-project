@@ -15,11 +15,14 @@ export class HeaderComponent {
   isLoggedIn: boolean = false;
   loginFormVisible: boolean = false;
 
+  constructor(private authService: AuthService) {
+    // Verificamos si el usuario está autenticado al inicializar el componente
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
+
   toggleLoginForm(): void {
     this.loginFormVisible = !this.loginFormVisible;
   }
-
-  constructor(private authService: AuthService) {}
 
   @ViewChild(LoginComponent) loginComponent!: LoginComponent;
 

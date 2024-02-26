@@ -9,14 +9,7 @@ import { User } from '../models/user.model';
 })
 
 export class AuthService {
-  private loggedInStatus = false;
-
   constructor(private http: HttpClient) {}
-
-  // Función para verificar el estado de inicio de sesión del usuario
-  get isLoggedIn() {
-    return this.loggedInStatus;
-  }
 
   // Función para iniciar sesión
   login(username: string, password: string): Observable<User> {
@@ -24,25 +17,27 @@ export class AuthService {
       .pipe(
         map(user => {
           if (user && user.token) {
-            // Almacenar los detalles del usuario y el token jwt en el almacenamiento local
-            // para mantener al usuario conectado entre las recargas de la página
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            this.loggedInStatus = true;
+            // Almacenar los detalles del usuario y el token jwt en sessionStorage
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
           }
           return user;
         })
       );
   }
 
-  // Función para cerrar sesión
-  logout(): void {
-    localStorage.removeItem('currentUser');
-    this.loggedInStatus = false;
+  // Obtenemos el usuario actual almacenado en sessionStorage
+  getCurrentUser(): User | null {
+    const userJSON = sessionStorage.getItem('currentUser');
+    return userJSON ? JSON.parse(userJSON) : null;
   }
 
-  /* //Función para registrar un nuevo usuario
-  register(user: User): Observable<User> {
-    // Asumiendo que la API del backend tiene una ruta '/api/register' para el registro
-    return this.http.post<User>('/api/register', user);
-  } */
+  isLoggedIn(): boolean {
+    // Verificar si hay un usuario actual almacenado en sessionStorage
+    return !!this.getCurrentUser();
+  }
+
+  // Función para cerrar sesión
+  logout(): void {
+    sessionStorage.removeItem('currentUser');
+  }
 }
