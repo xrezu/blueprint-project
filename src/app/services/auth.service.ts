@@ -40,9 +40,9 @@ export class AuthService {
     this.loggedInStatus = false;
   }
 
-  // Función para registrar un nuevo usuario
+  /* //Función para registrar un nuevo usuario
   register(user: User): Observable<User> {
     // Asumiendo que la API del backend tiene una ruta '/api/register' para el registro
     return this.http.post<User>('/api/register', user);
-  }
+  } */
 }

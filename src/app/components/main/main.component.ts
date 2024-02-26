@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.css'
+  styleUrls: ['./main.component.css'] // Corregido a plural
 })
 export class MainComponent {
-
+  // Lógica del componente, si la hay
 }

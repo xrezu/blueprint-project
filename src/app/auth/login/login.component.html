@@ -1,16 +1,17 @@
+<h2> Inicia sesión </h2>
 <div class="login">
   <form class="login-form" (ngSubmit)="onLogin()" method="post">
     <h2> Inicia sesión </h2>
     <input
       type="text"
-      [(ngModel)]="username"
+      ngModel
       name="email"
       placeholder="Nombre de usuario"
       required="required"
     />
     <input
       type="password"
-      [(ngModel)]="password"
+      ngModel
       name="password"
       placeholder="Contraseña"
       required="required"

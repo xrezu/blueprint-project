@@ -1,0 +1,26 @@
+<h3>Formulario de Reclamaciones y Peticiones</h3>
+<form #complaintForm="ngForm" (ngSubmit)="submitForm(complaintForm)">
+  <div>
+    <label for="name">Nombre:</label>
+    <input
+      type="text"
+      ngModel
+      id="name"
+      name="name"
+      required="required">
+  </div>
+  <div>
+    <label for="email">Correo electrónico:</label>
+    <input
+      type="email"
+      ngModel
+      id="email"
+      name="email"
+      required="required">
+  </div>
+  <div>
+    <label for="complaint">Reclamación o Petición:</label>
+    <textarea id="complaint" ngModel name="complaint" required></textarea>
+  </div>
+  <button type="submit" [disabled]="!complaintForm.valid"> Enviar </button>
+</form>

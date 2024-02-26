@@ -1,12 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { LoginComponent } from '@/app/auth/login/login.component';
+import { AuthService } from '@/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css'],
+  imports: [LoginComponent],
 })
+
 export class HeaderComponent {
+  isLoggedIn: boolean = false;
+  loginFormVisible: boolean = false;
+
+  toggleLoginForm(): void {
+    this.loginFormVisible = !this.loginFormVisible;
+  }
+
+  constructor(private authService: AuthService) {}
+
+  @ViewChild(LoginComponent) loginComponent!: LoginComponent;
+
+  logout(): void {
+    this.isLoggedIn = false;
+    this.authService.logout();
+  }
 
 }

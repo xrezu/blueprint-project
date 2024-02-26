@@ -1,20 +1,24 @@
+// app.module.ts
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-//import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import { AuthModule } from './auth/auth.module';
+import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
+// import { SharedModule } from './shared/shared.module';
+import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
   declarations: [
-    //HeaderComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    AppComponent
+    FormsModule,
+    // SharedModule,
+    ComplaintFormComponent,
+    AuthModule
   ],
-  providers: []
+  exports: [ComplaintFormComponent, AppModule, HeaderComponent],
+  bootstrap: []
 })
-export class AppModule {}
+export class AppModule { }

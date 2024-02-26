@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { MainComponent } from "./components/main/main.component";
-import { HeaderComponent } from "./shared/header/header.component";
-import { FooterComponent } from "./shared/footer/footer.component";
+import { HeaderComponent } from './shared/header/header.component';
+import { MainComponent } from './components/main/main.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { CitizenComponent } from './components/citizen/citizen.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent],
+  imports: [
+    HeaderComponent,
+    MainComponent,
+    FooterComponent,
+    CitizenComponent
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
-  title = 'blueprint-project';
+  title = 'app';
 }
-
