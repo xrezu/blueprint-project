@@ -1,12 +1,12 @@
 <!-- header.component.html -->
 <header class="header flex justify-between items-center p-4">
   <div class="">
-    <img src="../@/assets/images" alt="logo-blueprint">
+    <img src="../@/assets/images/logo/" alt="logo-blueprint">
   </div>
   <div class="login">
-    <ng-container ngIf="!isLoggedIn; else logoutButton">
+    <ng-container *ngIf="!isLoggedIn; else logoutButton">
       <button (click)="toggleLoginForm()"> Iniciar sesión </button>
-      <div ngIf="loginFormVisible">
+      <div *ngIf="loginFormVisible">
         <app-login #loginForm></app-login>
       </div>
     </ng-container>

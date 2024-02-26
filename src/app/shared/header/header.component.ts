@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { LoginComponent } from '@/app/auth/login/login.component';
 import { AuthService } from '@/app/services/auth.service';
 
@@ -7,7 +8,7 @@ import { AuthService } from '@/app/services/auth.service';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [LoginComponent],
+  imports: [CommonModule, LoginComponent],
 })
 
 export class HeaderComponent {
