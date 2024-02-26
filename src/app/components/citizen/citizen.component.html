@@ -1,22 +1,18 @@
 <main class="main-content">
   <div class="header-main-content">
-    <h2 class="header-main-title">
-      <!-- Aquí se genera el título del tipo de operación-->
-    </h2>
-    <span class="header-main-user-type">
-      <!-- Aquí se genera el nombre del tipo de usuario -->
-    </span>
-    <span class="header-main-user-name">
-      <!-- Aquí se genera el nombre del usuario -->
-    </span>
-    <span class="header-main-user-surname">
-      <!-- Aquí se genera el apellido del usuario -->
-    </span>
+    <h2 class="header-main-title">Blue Print</h2>
+    <div class="header-main-user">
+      <span class="header-main-user-type">ciudadano:</span>
+      <span class="header-main-user-name">
+        <!-- Aquí se genera el nombre del usuario -->
+      </span>
+      <span class="header-main-user-surname">
+        <!-- Aquí se genera el apellido del usuario -->
+      </span>
+    </div>
   </div>
   <div class="subheader-main-content">
-    <h3 class="subheader-main-title">
-      <!-- Aquí se genera el subtítulo del tipo de operación -->
-    </h3>
+    <h3 class="subheader-main-title">Aportaciones totales / mensuales</h3>
   </div>
   <table class="table-main-content">
     <thead class="table-main-header-transactions-titles">
@@ -42,21 +38,6 @@
           {{ contribution.totalAmount | currency }}
         </td>
       </tr>
-
-      <!--
-                Aquí se generán los movimientos de la tabla
-
-                <tr class="table-main-transaction">
-                    <td class="table-main-data">Dato 1</td>
-                    <td class="table-main-data">Dato 2</td>
-                    <td class="table-main-data">Dato 3</td>
-                </tr>
-                <tr class="table-main-transaction">
-                    <td class="table-main-data">Dato 1</td>
-                    <td class="table-main-data">Dato 2</td>
-                    <td class="table-main-data">Dato 3</td>
-                </tr>
-            -->
     </tbody>
   </table>
 </main>
