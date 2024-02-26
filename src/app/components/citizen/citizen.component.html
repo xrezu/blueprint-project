@@ -17,26 +17,25 @@
         <h3 class="subheader-main-title">
             <!-- Aquí se genera el subtítulo del tipo de operación -->
         </h3>
-        <div *ngFor="let user of contributions">
-            <div *ngFor="let contribution of user.contributions">
-                <p>Entidad Financiera: {{ contribution.financialEntityId }}</p>
-                <p>promotor: {{ contribution.promoterId}}</p>
-                <p>Monto Total: {{ contribution.totalAmount | currency }}</p>
-                <p>Aportaciones Mensuales: {{ contribution.monthlyContributions | currency }}</p>
-            </div>
-        </div>
     </div>
     <table class="table-main-content">
         <thead class="table-main-header-transactions-titles">
-            
-                <!-- Aquí se generán los títulos de la cabecera de la tabla -->
-
-                <th class="table-main-header-title">título 1</th>
-                <th class="table-main-header-title">título 2</th>
-                <th class="table-main-header-title">título 3</th>
-           
+                <th class="table-main-header-title">Entidad financiera</th>
+                <th class="table-main-header-title">Fecha</th>
+                <th class="table-main-header-title">Aportación</th>
+                <th class="table-main-header-title">Acumulado</th>      
         </thead>
-        <tbody class="table-main-transactions-content">
+        <tbody *ngFor="let user of contributions" class="table-main-transactions-content">
+            
+               
+                    <tr *ngFor="let contribution of user.contributions" class="table-main-transaction">
+                        <td class="table-main-data">{{ contribution.financialEntityId }}</td>
+                        <td class="table-main-data">{{ contribution.date }}</td>
+                        <td class="table-main-data">{{ contribution.monthlyContributions | currency }}</td>
+                        <td class="table-main-data">{{ contribution.totalAmount | currency }}</td>
+                    </tr>
+            
+          
             <!--
                 Aquí se generán los movimientos de la tabla
 
