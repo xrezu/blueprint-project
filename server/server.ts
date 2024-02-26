@@ -41,68 +41,6 @@ app.post('/claims', (req: Request, res: Response) => {
     });
 });
 
-//Endpoint para solicitar la informacion de los ciudadanos
-app.get('/citizen', (req, res) => {
-    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'contributions.json'); // Asegúrate de que la ruta al archivo sea correcta
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error leyendo el archivo de usuarios:', err);
-            return res.status(500).send('Error al leer el archivo de datos');
-        }
-
-        // Intenta parsear el JSON y enviarlo como respuesta
-        try {
-            const contributions = JSON.parse(data);
-            res.json(contributions);
-        } catch (parseError) {
-            console.error('Error al parsear los datos de usuarios:', parseError);
-            res.status(500).send('Error al procesar los datos de usuarios');
-        }
-    });
-});
-
-
-app.get('/promoter', (req, res) => {
-    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'promoters.json'); // Asegúrate de que la ruta al archivo sea correcta
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error leyendo el archivo de usuarios:', err);
-            return res.status(500).send('Error al leer el archivo de datos');
-        }
-
-        // Intenta parsear el JSON y enviarlo como respuesta
-        try {
-            const promotors = JSON.parse(data);
-            res.json(promotors);
-        } catch (parseError) {
-            console.error('Error al parsear los datos de usuarios:', parseError);
-            res.status(500).send('Error al procesar los datos de usuarios');
-        }
-    });
-});
-
-
-app.get('/FEntity', (req, res) => {
-    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'financialEntities.json'); // Asegúrate de que la ruta al archivo sea correcta
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error leyendo el archivo de usuarios:', err);
-            return res.status(500).send('Error al leer el archivo de datos');
-        }
-
-        // Intenta parsear el JSON y enviarlo como respuesta
-        try {
-            const FEntity = JSON.parse(data);
-            res.json(FEntity);
-        } catch (parseError) {
-            console.error('Error al parsear los datos de usuarios:', parseError);
-            res.status(500).send('Error al procesar los datos de usuarios');
-        }
-    });
-});
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
 
@@ -118,3 +56,4 @@ app.get('*', (req: Request, res: Response) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+

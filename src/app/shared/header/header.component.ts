@@ -7,7 +7,7 @@ import { AuthService } from '@/app/services/auth.service';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: []
+  imports: [LoginComponent],
 })
 
 export class HeaderComponent {
