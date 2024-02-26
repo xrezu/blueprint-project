@@ -8,22 +8,24 @@ import { MainComponent } from './components/main/main.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    LoginComponent
     // Otros componentes declarados aquí...
     
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    SharedModule,
+    LoginComponent,
     ComplaintFormComponent,
     HeaderComponent,
     MainComponent,
     FooterComponent,
   ],
   exports: [ComplaintFormComponent, LoginComponent],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
 export class AppModule { }
