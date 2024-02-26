@@ -1,1 +1,17 @@
-<p>header works!</p>
+<!-- header.component.html -->
+<header class="header flex justify-between items-center p-4">
+  <div class="">
+    <img src="../@/assets/images" alt="logo-blueprint">
+  </div>
+  <div class="login">
+    <ng-container ngIf="!isLoggedIn; else logoutButton">
+      <button (click)="toggleLoginForm()"> Iniciar sesión </button>
+      <div ngIf="loginFormVisible">
+        <app-login #loginForm></app-login>
+      </div>
+    </ng-container>
+    <ng-template #logoutButton>
+      <button (click)="logout()"> Cerrar sesión </button>
+    </ng-template>
+  </div>
+</header>

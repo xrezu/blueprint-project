@@ -1,8 +1,8 @@
+// app.component.ts
 import { Component } from '@angular/core';
-import { HeaderComponent } from './shared/header/header.component';
-import { MainComponent } from './components/main/main.component';
-import { FooterComponent } from './shared/footer/footer.component';
-import { CitizenComponent } from './components/citizen/citizen.component';
+//import { HeaderComponent } from './shared/header/header.component';
+//import { MainComponent } from './components/main/main.component';
+//import { FooterComponent } from './shared/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +14,10 @@ import { CitizenComponent } from './components/citizen/citizen.component';
     CitizenComponent
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  //imports: [HeaderComponent, MainComponent, FooterComponent]
 })
+
 export class AppComponent {
-  title = 'app';
+  title = 'Blueprint Proyect';
 }
-
-
