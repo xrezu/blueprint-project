@@ -40,7 +40,7 @@ export class DataService {
     return this.http.get<Promoter[]>(`${this.apiUrl}/promoter`);
   }
 
-  getFinancialEntities(): Observable<FinancialEntity[]> {
-    return this.http.get<FinancialEntity[]>(`${this.apiUrl}/FEntity`);
-  }
+  getFinancialEntities(): Observable<{ financialEntities: FinancialEntity[] }> {
+    return this.http.get<{ financialEntities: FinancialEntity[] }>(`${this.apiUrl}/FEntity`);
+}
 }

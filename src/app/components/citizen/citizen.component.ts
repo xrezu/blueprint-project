@@ -25,39 +25,29 @@ export class CitizenComponent implements OnInit {
   ngOnInit() {
     //TODO: descomentar la línea cuando se termine la parte de autentificación
     //this.userId = sessionStorage.getItem('userId');
-    forkJoin({
-      contributions: this.dataService.getContributions(),
-      promoters: this.dataService.getPromoters(),
-      financialEntities: this.dataService.getFinancialEntities()
-    }).pipe(
-      map(({ contributions, promoters, financialEntities }) => 
-        contributions.contributions.map(userContribution => ({
-          ...userContribution,
-          contributions: userContribution.contributions.map(contribution => ({
-            ...contribution,
-            // Accede directamente a los arrays sin buscar una propiedad adicional
-            promoterName: promoters.find((p: Promoter) => p.id === contribution.promoterId)?.name,
-            financialEntityName: financialEntities.find((f: FinancialEntity) => f.id === contribution.financialEntityId)?.name
-          }))
-        }))
-      )
-    ).subscribe({
-      next: (enrichedContributions) => {
-        this.contributions = enrichedContributions;
-      },
-      error: (error) => console.error('Error al obtener las contribuciones:', error)
-    });
+    this.loadContributions();
   }
 
   loadContributions(): void {
-    this.dataService.getContributions().subscribe({
-      next: (response) => {
-        this.contributions = response.contributions;
-      },
-      error: (error) =>
-        console.error('Error al obtener las contribuciones:', error),
+    forkJoin({
+        contributions: this.dataService.getContributions(),
+        financialEntities: this.dataService.getFinancialEntities()
+    }).pipe(
+        map(({ contributions, financialEntities }) =>
+            contributions.contributions.map(contribution => ({
+                ...contribution,
+                // Accede correctamente al array dentro del objeto
+                financialEntityName: financialEntities.financialEntities.find(fe => fe.id === contribution.financialEntityId)?.name
+            }))
+        )
+    ).subscribe({
+        next: (enrichedContributions) => {
+            this.contributions = enrichedContributions;
+        },
+        error: (error) => console.error('Error al combinar las contribuciones con entidades financieras:', error)
     });
-  }
+}
+
 
   // TODO: sustituir el método loadContributions() por el de abajo cuando se termine la parte de autentificación
   // loadContributions(): void {

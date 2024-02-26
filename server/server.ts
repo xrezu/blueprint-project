@@ -64,21 +64,20 @@ app.get('/citizen', (req, res) => {
 
 
 app.get('/promoter', (req, res) => {
-    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'promoters.json'); // Asegúrate de que la ruta al archivo sea correcta
+    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'promoters.json');
 
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
-            console.error('Error leyendo el archivo de usuarios:', err);
+            console.error('Error leyendo el archivo:', err);
             return res.status(500).send('Error al leer el archivo de datos');
         }
 
-        // Intenta parsear el JSON y enviarlo como respuesta
         try {
-            const promotors = JSON.parse(data);
-            res.json(promotors);
+            const result = JSON.parse(data);
+            res.json(result.promoters); // Solo devuelve el array
         } catch (parseError) {
-            console.error('Error al parsear los datos de usuarios:', parseError);
-            res.status(500).send('Error al procesar los datos de usuarios');
+            console.error('Error al parsear los datos:', parseError);
+            res.status(500).send('Error al procesar los datos');
         }
     });
 });

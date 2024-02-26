@@ -9,6 +9,7 @@ export interface Contribution {
   export interface UserContribution {
     userId: string;
     contributions: Contribution[];
+    financialEntityId: string;
   }
   
   export interface ContributionsResponse {
