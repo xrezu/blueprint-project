@@ -1,5 +1,5 @@
 export interface FinancialEntity {
-    id: string;
+    financialEntityId: string;
     name: string;
     contactEmail: string;
   }

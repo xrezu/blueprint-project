@@ -30,26 +30,53 @@ export class CitizenComponent implements OnInit {
 
   loadContributions(): void {
     forkJoin({
-        contributions: this.dataService.getContributions(),
-        financialEntities: this.dataService.getFinancialEntities()
-    }).pipe(
-        map(({ contributions, financialEntities }) =>
-            contributions.contributions.map(contribution => ({
-                ...contribution,
-                // Accede correctamente al array dentro del objeto
-                financialEntityName: financialEntities.financialEntities.find(fe => fe.id === contribution.financialEntityId)?.name
-            }))
-        )
-    ).subscribe({
-        next: (enrichedContributions) => {
-            this.contributions = enrichedContributions;
+      contributions: this.dataService.getContributions(),
+      financialEntities: this.dataService.getFinancialEntities(),
+    })
+      .pipe(
+        map(({ contributions, financialEntities }) => {
+          // Asegúrate de acceder a la propiedad correcta aquí
+          return {
+            ...contributions,
+            contributions: contributions.contributions.map(
+              (userContribution) => {
+                return {
+                  ...userContribution,
+                  contributions: userContribution.contributions.map(
+                    (contribution) => {
+                      const financialEntityName =
+                        financialEntities.financialEntities.find((fe) => {
+                          return (
+                            fe.financialEntityId ===
+                            contribution.financialEntityId
+                          );
+                        })?.name;
+
+                      return {
+                        ...contribution,
+                        financialEntityName, // Esto añade el nombre encontrado a cada contribución
+                      };
+                    }
+                  ),
+                };
+              }
+            ),
+          };
+        })
+      )
+      .subscribe({
+        next: (enrichedData) => {
+          this.contributions = enrichedData.contributions;
         },
-        error: (error) => console.error('Error al combinar las contribuciones con entidades financieras:', error)
-    });
-}
+        error: (error) =>
+          console.error(
+            'Error al combinar las contribuciones con entidades financieras:',
+            error
+          ),
+      });
+  }
 
-
-  // TODO: sustituir el método loadContributions() por el de abajo cuando se termine la parte de autentificación
+  // TODO: implementar el filtro en funcion del usuario cuando se termine la parte de autentificación
   // loadContributions(): void {
   //   this.dataService.getContributions().subscribe({
   //     next: (response) => {

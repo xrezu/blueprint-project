@@ -1,6 +1,7 @@
 export interface Contribution {
     promoterId: string;
     financialEntityId: string;
+    financialEntityName?: string;
     totalAmount: number;
     monthlyContributions: number;
     date: string;

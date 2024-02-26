@@ -29,7 +29,7 @@
         *ngFor="let contribution of user.contributions"
         class="table-main-transaction"
       >
-        <td class="table-main-data">{{ contribution.financialEntityId }}</td>
+        <td class="table-main-data">{{ contribution.financialEntityName }}</td>
         <td class="table-main-data">{{ contribution.date }}</td>
         <td class="table-main-data">
           {{ contribution.monthlyContributions | currency }}
