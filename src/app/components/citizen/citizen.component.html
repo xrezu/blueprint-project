@@ -18,24 +18,23 @@
             <!-- Aquí se genera el subtítulo del tipo de operación -->
         </h3>
         <div *ngFor="let user of contributions">
-            <h3>Contribuciones del Usuario {{ user.userId }}</h3>
             <div *ngFor="let contribution of user.contributions">
                 <p>Entidad Financiera: {{ contribution.financialEntityId }}</p>
+                <p>promotor: {{ contribution.promoterId}}</p>
                 <p>Monto Total: {{ contribution.totalAmount | currency }}</p>
                 <p>Aportaciones Mensuales: {{ contribution.monthlyContributions | currency }}</p>
-                <p>Fecha: {{ contribution.date }}</p>
             </div>
         </div>
     </div>
     <table class="table-main-content">
         <thead class="table-main-header-transactions-titles">
-            <!--
-                Aquí se generán los títulos de la cabecera de la tabla
+            
+                <!-- Aquí se generán los títulos de la cabecera de la tabla -->
 
                 <th class="table-main-header-title">título 1</th>
                 <th class="table-main-header-title">título 2</th>
                 <th class="table-main-header-title">título 3</th>
-            -->
+           
         </thead>
         <tbody class="table-main-transactions-content">
             <!--
