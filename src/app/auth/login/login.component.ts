@@ -3,6 +3,7 @@ import { AuthService } from '@/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
   //styleUrls: ['./login.component.css'],
 })
@@ -11,6 +12,7 @@ export class LoginComponent {
   username: string | undefined;
   password: string | undefined;
   errorMessage: string | undefined;
+  isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService) {}
 
@@ -25,6 +27,7 @@ export class LoginComponent {
       if (user) {
         // Usuario autenticado con éxito
         console.log('Login exitoso', user);
+        this.isLoggedIn = true;
       } else {
         // Falló la autenticación
         this.errorMessage = 'Credenciales incorrectas';
