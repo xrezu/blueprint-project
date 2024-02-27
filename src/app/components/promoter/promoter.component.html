@@ -11,6 +11,17 @@
   <div class="subheader-main-content">
     <h3 class="subheader-main-title">Aportaciones</h3>
   </div>
+  <div class="promoter-info">
+    <h3>Información de Promotores</h3>
+    <div *ngFor="let promoter of promoterContributions">
+      <h3>{{ promoter.name }}</h3>
+      <div *ngFor="let contribution of promoter.contributions">
+        <p>userid: {{ contribution.userId}}</p>
+        <p>financialEntityId: {{ contribution.financialEntityId}}</p>
+        <p>monthlyContributions: {{ contribution.monthlyContributions | currency}}</p>
+      </div>
+    </div>
+  </div>
   <table class="table-main-content">
     <thead class="table-main-header-transactions-titles">
       <th class="table-main-header-title">Usuario</th>

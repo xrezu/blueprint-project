@@ -14,6 +14,8 @@ export interface Contribution {
   }
   
   export interface ContributionsResponse {
+    flatMap(arg0: (contribution: any) => any): any;
+    filter(arg0: (contribution: { promoterId: string; }) => boolean): any;
     map(arg0: (contribution: { promoterId: string; financialEntityId: string; }) => { promoterName: string | undefined; financialEntityName: string | undefined; promoterId: string; financialEntityId: string; }): any;
     contributions: UserContribution[];
   }

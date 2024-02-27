@@ -32,6 +32,7 @@ export class DataService {
   }
 
   getContributions(): Observable<ContributionsResponse> {
+    
     return this.http.get<ContributionsResponse>(`${this.apiUrl}/citizen`);
   }
 
