@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
+import session from 'express-session';
 import path from 'path';
 
 const app = express();
@@ -10,7 +11,10 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Camino absoluto al archivo de reclamaciones, ajustar según la ubicación real
+// Ruta absoluta del archivo de usuarios
+const usersFileJSON = path.resolve(__dirname, 'src/assets/users.json');
+
+// Ruta absoluta del archivo de reclamaciones, ajustar según la ubicación real
 const claimsFilePath = path.resolve(__dirname, '../../assets/json/claims.json');
 
 // Endpoint para obtener las reclamaciones
@@ -38,6 +42,38 @@ app.post('/claims', (req: Request, res: Response) => {
             }
             res.status(201).json({ message: 'Claim added successfully' });
         });
+    });
+});
+
+// Ruta para manejar el inicio de sesión
+app.post('/api/login', (req: Request, res: Response) => {
+    const { username, password } = req.body;
+    // Leemos el archivo users.json
+    fs.readFile(usersFileJSON, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error al leer el archivo users.json:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    
+        try {
+            const users = JSON.parse(data);
+            // Verificamos si el nombre de usuario y la contraseña se encuentran en el JSON de usuarios
+            const user = users.find((user: any) => user.username === username && user.password === password);
+            if (user) {
+            // Usuario autenticado correctamente
+            // Almacenar el rol del usuario en el almacenamiento de sesión
+            //req.session.role = user.role;
+    
+            // Enviar una respuesta con el nombre de usuario y el rol
+            res.json({ username: user.username/*, role: user.role*/ });
+            } else {
+            // Credenciales incorrectas
+            res.status(401).json({ error: 'Credenciales incorrectas' });
+            }
+        } catch (error) {
+            console.error('Error al analizar el archivo JSON:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
     });
 });
 

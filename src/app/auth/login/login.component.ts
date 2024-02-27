@@ -1,4 +1,6 @@
+// login.component.ts
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AuthService } from '@/app/services/auth.service';
 
 @Component({
@@ -6,6 +8,7 @@ import { AuthService } from '@/app/services/auth.service';
   standalone: true,
   templateUrl: './login.component.html',
   //styleUrls: ['./login.component.css'],
+  imports: [CommonModule],
 })
 
 export class LoginComponent {
@@ -16,7 +19,8 @@ export class LoginComponent {
 
   constructor(private authService: AuthService) {}
 
-  onLogin(): void {
+  onLogin(event: Event): void { // Usamos un evento para evitar que el formulario se envíe automáticamente
+    event.preventDefault();
     // No se han introducido datos en el login, por lo que saltará un mensaje de error
     if (!this.username || !this.password) {
       this.errorMessage = 'Por favor, introduzca sus datos';
@@ -26,10 +30,10 @@ export class LoginComponent {
     this.authService.login(this.username, this.password).subscribe(user => {
       if (user) {
         // Usuario autenticado con éxito
-        console.log('Login exitoso', user);
+        console.log('Login exitoso');
         this.isLoggedIn = true;
       } else {
-        // Falló la autenticación
+        // Se han introducido datos erroneos, por lo que saltará un mensaje de errorFalló la autenticación
         this.errorMessage = 'Credenciales incorrectas';
       }
     });

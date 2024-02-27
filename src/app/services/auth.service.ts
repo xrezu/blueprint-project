@@ -1,3 +1,4 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -31,8 +32,8 @@ export class AuthService {
     return userJSON ? JSON.parse(userJSON) : null;
   }
 
+  // Verificamos si hay un usuario actual almacenado en sessionStorage
   isLoggedIn(): boolean {
-    // Verificar si hay un usuario actual almacenado en sessionStorage
     return !!this.getCurrentUser();
   }
 

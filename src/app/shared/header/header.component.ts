@@ -1,3 +1,4 @@
+// header.component.ts
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '@/app/auth/login/login.component';
@@ -30,5 +31,4 @@ export class HeaderComponent {
     this.isLoggedIn = false;
     this.authService.logout();
   }
-
 }
