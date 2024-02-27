@@ -41,8 +41,30 @@ app.post('/claims', (req: Request, res: Response) => {
     });
 });
 
-//Endpoint para solicitar la informacion de los ciudadanos
-app.get('/citizen', (req, res) => {
+// Endpoint para obtener la información de los usuarios
+app.get('/users', (req, res) => {
+    const filePath = path.join(__dirname, 'src', 'assets', 'json', 'users.json'); // Asegúrate de que la ruta al archivo sea correct
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error leyendo el archivo de usuarios:', err);
+            return res.status(500).send('Error al leer el archivo de datos');
+        }
+
+        // Intenta parsear el JSON y enviarlo como respuesta
+        try {
+            const users = JSON.parse(data);
+            res.json(users.users);
+        } catch (parseError) {
+            console.error('Error al parsear los datos de usuarios:', parseError);
+            res.status(500).send('Error al procesar los datos de usuarios');
+        }
+    });
+});
+
+
+//Endpoint para solicitar la informacion de las contribuciones
+app.get('/contributions', (req, res) => {
     const filePath = path.join(__dirname, 'src', 'assets', 'json', 'contributions.json'); // Asegúrate de que la ruta al archivo sea correcta
 
     fs.readFile(filePath, 'utf8', (err, data) => {

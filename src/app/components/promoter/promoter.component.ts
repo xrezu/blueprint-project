@@ -4,6 +4,8 @@ import { DataService } from '../../services/data.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Promoter } from '@/app/models/promoter.model';
+import { FinancialEntity } from '@/app/models/FEntity.model';
+import { User } from '@/app/models/user.model';
 @Component({
   selector: 'app-promoter',
   standalone: true,
@@ -24,37 +26,50 @@ export class PromoterComponent implements OnInit {
   loadPromoters(): void {
     forkJoin({
       promoters: this.dataService.getPromoters(),
-      contributions: this.dataService.getContributions(),
-      financialEntitiesResponse: this.dataService.getFinancialEntities(),
+      contributionsObj: this.dataService.getContributions(),
+      financialEntitiesObj: this.dataService.getFinancialEntities(),
+      users: this.dataService.getUsers() // Cambiado a usersObj para claridad
     })
     .pipe(
-      map(({ promoters, contributions, financialEntitiesResponse }) => {
-        // Aquí aseguramos acceder al array dentro del objeto financialEntitiesResponse
-        const financialEntities = financialEntitiesResponse.financialEntities;
-
-        return promoters.map(promoter => ({
-          ...promoter,
-          contributions: contributions.flatMap(contribution => 
-            contribution.contributions
-              .filter((subContribution: { promoterId: string; }) => subContribution.promoterId === promoter.id)
-              .map((subContribution: { financialEntityId: any; monthlyContributions: any; }) => {
-                // Encuentra el nombre de la entidad financiera directamente en el array financialEntities
-                const financialEntityName = financialEntities.find((fe: any) => fe.financialEntityId === subContribution.financialEntityId)?.name;
+      map(({ promoters, contributionsObj, financialEntitiesObj, users }) => {
+        const contributions = contributionsObj.contributions;
+        const financialEntities = financialEntitiesObj.financialEntities;
+        
+        return promoters.map(promoter => {
+          const promoterContributions = contributions.flatMap(contribution => {
+            return contribution.contributions
+              .filter(subContribution => subContribution.promoterId === promoter.id)
+              .map(subContribution => {
+                const user = users.find(u => {
+                  return u.id === contribution.userId;
+                });
+                
+                const financialEntityName = financialEntities.find(fe => {
+                  return fe.financialEntityId === subContribution.financialEntityId;
+                })?.name;
+                
                 return {
-                  userId: contribution.userId,
-                  financialEntityName, // Añadimos el nombre de la entidad financiera aquí
-                  monthlyContributions: subContribution.monthlyContributions
+                  userName: user ? user.name : 'Usuario no encontrado',
+                  financialEntityName,
+                  monthlyContributions: subContribution.monthlyContributions,
                 };
-              })
-          )
-        }));
+              });
+          });
+  
+          return {
+            ...promoter,
+            contributions: promoterContributions,
+          };
+        });
       })
     )
     .subscribe({
       next: (result) => {
+        console.log('Final result:', result);
         this.promoterContributions = result;
       },
-      error: (error) => console.error('Error loading promoters and contributions', error)
+      error: (error) => console.error('Error loading promoters and contributions', error),
     });
   }
+
 }
