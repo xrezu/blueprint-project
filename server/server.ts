@@ -10,8 +10,9 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Camino absoluto al archivo de reclamaciones, ajustar según la ubicación real
+//Declaramos las rutas de los archivos JSON
 const claimsFilePath = path.resolve(__dirname, 'src/assets/json/claims.json');
+const faqFilePath = path.resolve(__dirname, 'src/assets/json/faq.json');
 
 // Endpoint para obtener las reclamaciones
 app.get('/claims', (req: Request, res: Response) => {
@@ -50,6 +51,27 @@ app.post('/claims', (req: Request, res: Response) => {
         });
     });
 });
+
+// Endpoint para consultar preguntas al chatbot
+app.post('/faq', (req: Request, res: Response) => {
+    const preguntaUsuario = req.body.pregunta;
+
+    fs.readFile(faqFilePath, { encoding: 'utf-8' }, (err, data) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error reading FAQ file' });
+        }
+        
+        const faqs = JSON.parse(data);
+        const respuesta = faqs.find((faq: any) => faq.pregunta.toLowerCase() === preguntaUsuario.toLowerCase());
+
+        if (respuesta) {
+            res.json({ pregunta: preguntaUsuario, respuesta: respuesta.respuesta });
+        } else {
+            res.json({ pregunta: preguntaUsuario, respuesta: "Lo siento, no tengo una respuesta para eso." });
+        }
+    });
+});
+
 
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
