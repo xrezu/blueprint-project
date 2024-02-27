@@ -1,12 +1,12 @@
 <!-- login.component.html -->
 <div class="login flex justify-between items-center p-4 fixed w-full top-0 bg-white z-10">
-  <form class="" (ngSubmit)="validateForm($event)" method="post">
+  <form class="" (submit)="validateForm($event)" method="post">
     <label class="" for="username">
       Nombre de usuario:
     </label>
     <input
       type="text"
-      ngModel
+      [(ngModel)]="username"
       id="username"
       name="username"
     />
@@ -15,14 +15,14 @@
     </label>
     <input
       type="password"
-      ngModel
+      [(ngModel)]="password"
       id="password"
       name="password"
     />
     <button type="submit"> Entrar </button>
   </form>
-  <!-- Mostramos mensaje de error si existe -->
-  <div *ngIf="errorMessage" class="error-message">
-    <span> {{ errorMessage }} </span>
+  <!-- Mostramos un mensaje de error si existe -->
+  <div *ngIf="errorMessage" class="error-alert-zone">
+    <span id="error-message"> {{ errorMessage }} </span>
   </div>
 </div>

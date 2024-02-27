@@ -17,10 +17,11 @@ export class AuthService {
     return this.http.post<User>('/api/login', {username, password})
       .pipe(
         map(user => {
-          if (user && user.token) {
-            // Almacenar los detalles del usuario y el token jwt en sessionStorage
-            sessionStorage.setItem('currentUser', JSON.stringify(user));
-          }
+          if (user && user.username && user.role) {
+            // Almacenar el nombre de usuario y el rol en sessionStorage
+            const currentUser = { username: user.username, role: user.role };
+            sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
           return user;
         })
       );
