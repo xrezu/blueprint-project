@@ -28,12 +28,11 @@ export class DataService {
   private apiUrl = 'http://localhost:3000';
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('/assets/data/users.json');
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
   getContributions(): Observable<ContributionsResponse> {
-    
-    return this.http.get<ContributionsResponse>(`${this.apiUrl}/citizen`);
+    return this.http.get<ContributionsResponse>(`${this.apiUrl}/contributions`);
   }
 
   
