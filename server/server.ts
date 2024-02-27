@@ -56,11 +56,14 @@ app.post('/api/login', (req: Request, res: Response) => {
         }
         try {
             const parsedData = JSON.parse(data);
-            const users = parsedData.users; // Aquí accedes a la propiedad 'users'
-            const user = users.find((user: any) => user.username === username && user.password === password);
+            // Accede a la propiedad 'users' dentro del objeto JSON
+            const users = parsedData.users;
+            const user = users.find((user) => user.username === username && user.password === password);
             if (user) {
+                // Usuario encontrado
                 res.json({ username: user.username, role: user.role });
             } else {
+                // Usuario no encontrado
                 res.status(401).json({ error: 'Credenciales incorrectas' });
             }
         } catch (error) {
@@ -69,6 +72,7 @@ app.post('/api/login', (req: Request, res: Response) => {
         }
     });
 });
+
 
 
 // Directorio donde se encuentran los archivos estáticos de Angular
