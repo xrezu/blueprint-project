@@ -1,5 +1,8 @@
 <div class="min-h-screen bg-secondary flex items-center justify-center">
   <div class="max-w-md w-full space-y-8">
+    <div class="flex justify-end">
+      <button type="button" (click)="closeForm()" class="text-primary font-semibold">X</button>
+    </div>
     <h3 class="mt-6 text-center text-3xl font-extrabold text-primary">Formulario de Reclamaciones y Peticiones</h3>
     <form #complaintForm="ngForm" (ngSubmit)="submitForm(complaintForm)" class="mt-8 space-y-6 bg-white p-8 rounded-lg shadow-md">
       <div>
