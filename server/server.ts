@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
+import { User } from '../src/app/models/user.model';
 //import session from 'express-session';
 import path from 'path';
 
@@ -58,7 +59,7 @@ app.post('/api/login', (req: Request, res: Response) => {
             const parsedData = JSON.parse(data);
             // Accede a la propiedad 'users' dentro del objeto JSON
             const users = parsedData.users;
-            const user = users.find((user) => user.username === username && user.password === password);
+            const user = users.find((user: User) => user.username === username && user.password === password);
             if (user) {
                 // Usuario encontrado
                 res.json({ username: user.username, role: user.role });
