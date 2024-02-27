@@ -1,47 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChatService } from '../services/chat.service'; 
+import { ChatService } from '../services/chat.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
+  imports: [CommonModule], // Importa CommonModule para usar directivas como *ngFor y *ngIf
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
   providers: [ChatService]
 })
 export class ChatComponent implements OnInit {
-  chatForm: FormGroup;
   messages: Array<{ message: string, sender: 'user' | 'bot' }> = [];
   isChatOpen: boolean = false;
+  preguntasFrecuentes: string[] = []; // Se inicializa vacío y se llenará con las preguntas del JSON
 
-  constructor(private fb: FormBuilder, private chatService: ChatService) {
-    this.chatForm = this.fb.group({
-      message: ['', Validators.required],
-    });
+  constructor(private chatService: ChatService) {}
+  showFaqs: boolean = false;
+
+  toggleFaqs(): void {
+    this.showFaqs = !this.showFaqs;
   }
 
   ngOnInit(): void {
+    this.loadFaqs(); 
   }
 
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  onSubmit(): void {
-    if (this.chatForm.valid) {
-      const userMessage = this.chatForm.get('message')?.value;
-      this.addMessage(userMessage, 'user');
-      this.chatService.sendQuestion(userMessage).subscribe({
-        next: (resp) => {
-          this.addMessage(resp.respuesta, 'bot');
-        },
-        error: (error) => {
-          console.error('Error al obtener respuesta del chatbot:', error);
-        }
-      });
+  loadFaqs(): void {
+    this.chatService.getFaqs().subscribe(faqs => {
+      this.preguntasFrecuentes = faqs.map(faq => faq.pregunta);
+    });
+  }
 
-      this.chatForm.reset();
-    }
+  sendQuestion(pregunta: string): void {
+    this.chatService.getFaqs().subscribe(faqs => {
+      const faq = faqs.find(f => f.pregunta === pregunta);
+      if (faq) {
+        this.addMessage(pregunta, 'user');
+        this.addMessage(faq.respuesta, 'bot');
+      } else {
+        this.addMessage('Pregunta no encontrada.', 'bot');
+      }
+    });
   }
 
   private addMessage(message: string, sender: 'user' | 'bot'): void {
