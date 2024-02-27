@@ -2,7 +2,7 @@
   <div class="header-main-content">
     <h2 class="header-main-title">Blue Print</h2>
     <div class="header-main-user">
-      <span class="header-main-user-type">ciudadano:</span>
+      <span class="header-main-user-type">Ciudadano:</span>
       <span class="header-main-user-name">
         <!-- Aquí se genera el nombre del usuario -->
       </span>
@@ -21,22 +21,12 @@
       <th class="table-main-header-title">Aportación</th>
       <th class="table-main-header-title">Acumulado</th>
     </thead>
-    <tbody
-      *ngFor="let user of contributions"
-      class="table-main-transactions-content"
-    >
-      <tr
-        *ngFor="let contribution of user.contributions"
-        class="table-main-transaction"
-      >
+    <tbody *ngFor="let user of contributions" class="table-main-transactions-content">
+      <tr *ngFor="let contribution of user.contributions" class="table-main-transaction">
         <td class="table-main-data">{{ contribution.financialEntityName }}</td>
         <td class="table-main-data">{{ contribution.date }}</td>
-        <td class="table-main-data">
-          {{ contribution.monthlyContributions | currency }}
-        </td>
-        <td class="table-main-data">
-          {{ contribution.totalAmount | currency }}
-        </td>
+        <td class="table-main-data">{{ contribution.monthlyContributions | currency }}</td>
+        <td class="table-main-data">{{ contribution.totalAmount | currency }}</td>
       </tr>
     </tbody>
   </table>
