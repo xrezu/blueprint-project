@@ -1,6 +1,6 @@
 <!-- login.component.html -->
 <div class="login flex justify-between items-center p-4 fixed w-full top-0 bg-white z-10">
-  <form class="" (ngSubmit)="onLogin($event)" method="post">
+  <form class="" action="/api/login" (ngSubmit)="onLogin($event)" method="post">
     <label class="" for="username">
       Nombre de usuario:
     </label>
@@ -8,7 +8,6 @@
       type="text"
       ngModel
       name="username"
-      required="required"
     />
     <label class="" for="password">
       Contraseña:
@@ -17,12 +16,11 @@
       type="password"
       ngModel
       name="password"
-      required="required"
     />
     <button type="submit"> Entrar </button>
   </form>
   <!-- Mostramos mensaje de error si existe -->
   <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
+    <span> {{ errorMessage }} </span>
   </div>
 </div>

@@ -35,6 +35,7 @@ export class LoginComponent {
       } else {
         // Se han introducido datos erroneos, por lo que saltará un mensaje de errorFalló la autenticación
         this.errorMessage = 'Credenciales incorrectas';
+        this.password = '';
       }
     });
   }
