@@ -1,12 +1,13 @@
 <!-- login.component.html -->
 <div class="login flex justify-between items-center p-4 fixed w-full top-0 bg-white z-10">
-  <form class="" action="/api/login" (ngSubmit)="onLogin($event)" method="post">
+  <form class="" (ngSubmit)="validateForm($event)" method="post">
     <label class="" for="username">
       Nombre de usuario:
     </label>
     <input
       type="text"
       ngModel
+      id="username"
       name="username"
     />
     <label class="" for="password">
@@ -15,6 +16,7 @@
     <input
       type="password"
       ngModel
+      id="password"
       name="password"
     />
     <button type="submit"> Entrar </button>

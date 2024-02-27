@@ -19,13 +19,18 @@ export class LoginComponent {
 
   constructor(private authService: AuthService) {}
 
-  onLogin(event: Event): void { // Usamos un evento para evitar que el formulario se envíe automáticamente
+  validateForm(event: Event): void {
     event.preventDefault();
     // No se han introducido datos en el login, por lo que saltará un mensaje de error
     if (!this.username || !this.password) {
       this.errorMessage = 'Por favor, introduzca sus datos';
       return;
     }
+    this.onLogin(event);
+  }
+
+  onLogin(event: Event): void { // Usamos un evento para evitar que el formulario se envíe automáticamente
+    event.preventDefault();
 
     this.authService.login(this.username, this.password).subscribe(user => {
       if (user) {
