@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../../services/data.service';
+import { DataService } from '@/app/services/data.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Promoter } from '@/app/models/promoter.model';

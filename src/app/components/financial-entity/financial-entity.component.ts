@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../../services/data.service';
+import { DataService } from '@/app/services/data.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FinancialEntity } from '../../models/FEntity.model';
+import { FinancialEntity } from '@/app/models/FEntity.model';
 
 @Component({
   selector: 'app-financial-entity',
@@ -38,7 +38,6 @@ export class FinancialEntityComponent implements OnInit {
   
         return financialEntities.map(entity => {
           const entityContributions = contributions.flatMap(contribution => {
-            // Asumiendo que la estructura de las contribuciones ya está correctamente ajustada
             return contribution.contributions
               .filter((subContribution: any) => subContribution.financialEntityId === entity.financialEntityId)
               .map((subContribution: any) => {

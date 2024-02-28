@@ -1,4 +1,5 @@
 export interface Contribution {
+  userId: string;
     promoterId: string;
     financialEntityId: string;
     financialEntityName?: string;
