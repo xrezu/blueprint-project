@@ -18,6 +18,34 @@ const usersFileJSON = path.resolve(__dirname, 'src/assets/json/users.json');
 const claimsFilePath = path.resolve(__dirname, 'src/assets/json/claims.json');
 const faqFilePath = path.resolve(__dirname, 'src/assets/json/faq.json');
 
+// Ruta para manejar el inicio de sesión
+app.post('/api/login', (req: Request, res: Response) => {
+    const { username, password } = req.body;
+
+    fs.readFile(usersFileJSON, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error al leer el archivo users.json:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        try {
+            const parsedData = JSON.parse(data);
+            // Accede a la propiedad 'users' dentro del objeto JSON
+            const users = parsedData.users;
+            const user = users.find((user: User) => user.username === username && user.password === password);
+            if (user) {
+                // Usuario encontrado
+                res.json({ username: user.username, role: user.role });
+            } else {
+                // Usuario no encontrado
+                res.status(401).json({ error: 'Credenciales incorrectas' });
+            }
+        } catch (error) {
+            console.error('Error al analizar el archivo JSON:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    });
+});
+
 // Endpoint para obtener las reclamaciones
 app.get('/claims', (req: Request, res: Response) => {
     fs.readFile(claimsFilePath, { encoding: 'utf-8' }, (err, data) => {
@@ -98,47 +126,6 @@ app.get('/contributions', (req, res) => {
         }
     });
 });
-// Ruta para manejar el inicio de sesión
-app.post('/api/login', (req: Request, res: Response) => {
-    const { username, password } = req.body;
-
-
-    fs.readFile(usersFileJSON, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error al leer el archivo users.json:', err);
-            return res.status(500).json({ error: 'Error interno del servidor' });
-        }
-        try {
-
-            const contributions = JSON.parse(data);
-            res.json(contributions);
-        } catch (parseError) {
-            console.error('Error al parsear los datos de usuarios:', parseError);
-            res.status(500).send('Error al procesar los datos de usuarios');
-
-            const parsedData = JSON.parse(data);
-            // Accede a la propiedad 'users' dentro del objeto JSON
-            const users = parsedData.users;
-            const user = users.find((user: User) => user.username === username && user.password === password);
-            if (user) {
-                // Usuario encontrado
-                res.json({ username: user.username, role: user.role });
-            } else {
-                // Usuario no encontrado
-                res.status(401).json({ error: 'Credenciales incorrectas' });
-            }
-        } catch (error) {
-            console.error('Error al analizar el archivo JSON:', error);
-            res.status(500).json({ error: 'Error interno del servidor' });
-
-        }
-    });
-});
-
-// Endpoint para consultar preguntas al chatbot
-app.post('/faq', (req: Request, res: Response) => {
-    const preguntaUsuario = req.body.pregunta;
-
 
 app.get('/promoter', (req, res) => {
     const filePath = path.join(__dirname, 'src', 'assets', 'json', 'promoters.json');
@@ -182,6 +169,26 @@ app.get('/FEntity', (req, res) => {
     });
 });
 
+// Endpoint para consultar preguntas al chatbot
+app.post('/faq', (req: Request, res: Response) => {
+    const preguntaUsuario = req.body.pregunta;
+
+    fs.readFile(faqFilePath, { encoding: 'utf-8' }, (err, data) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error reading FAQ file' });
+        }
+        
+        const faqs = JSON.parse(data);
+        const respuesta = faqs.find((faq: any) => faq.pregunta.toLowerCase() === preguntaUsuario.toLowerCase());
+
+        if (respuesta) {
+            res.json({ pregunta: preguntaUsuario, respuesta: respuesta.respuesta });
+        } else {
+            res.json({ pregunta: preguntaUsuario, respuesta: "Lo siento, no tengo una respuesta para eso." });
+        }
+    });
+});
+
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
 
@@ -197,4 +204,3 @@ app.get('*', (req: Request, res: Response) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
-
