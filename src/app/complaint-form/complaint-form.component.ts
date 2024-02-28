@@ -12,9 +12,17 @@ import { HttpClient } from '@angular/common/http';
 export class ComplaintFormComponent {
   // Define la URL del endpoint del servidor para enviar las reclamaciones
   private complaintsUrl = 'http://localhost:3000/claims';
-
+  isFormVisible: boolean = true;
   // Inyecta el HttpClient
   constructor(private http: HttpClient) { }
+  closeForm() {
+    this.isFormVisible = false; // Cambia el estado para ocultar el formulario
+  }
+
+  // Función para abrir el formulario (opcional)
+  openForm() {
+    this.isFormVisible = true; // Cambia el estado para mostrar el formulario
+  }
   
   submitForm(form: NgForm) {
     // Verifica si el formulario es válido

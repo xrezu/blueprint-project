@@ -1,26 +1,46 @@
-<h3>Formulario de Reclamaciones y Peticiones</h3>
-<form #complaintForm="ngForm" (ngSubmit)="submitForm(complaintForm)">
-  <div>
-    <label for="name">Nombre:</label>
-    <input
-      type="text"
-      ngModel
-      id="name"
-      name="name"
-      required="required">
+<div class="min-h-screen bg-secondary flex items-center justify-center">
+  <div class="max-w-md w-full space-y-8">
+    <div class="flex justify-end">
+      <button type="button" (click)="closeForm()" class="text-primary font-semibold">X</button>
+    </div>
+    <h3 class="mt-6 text-center text-3xl font-extrabold text-primary">Formulario de Reclamaciones y Peticiones</h3>
+    <form #complaintForm="ngForm" (ngSubmit)="submitForm(complaintForm)" class="mt-8 space-y-6 bg-white p-8 rounded-lg shadow-md">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Nombre:</label>
+        <input
+          type="text"
+          ngModel
+          id="name"
+          name="name"
+          required="required"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-detail focus:ring-detail sm:text-sm">
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico:</label>
+        <input
+          type="email"
+          ngModel
+          id="email"
+          name="email"
+          required="required"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-detail focus:ring-detail sm:text-sm">
+      </div>
+      <div>
+        <label for="complaint" class="block text-sm font-medium text-gray-700">Reclamación o Petición:</label>
+        <textarea 
+          id="complaint" 
+          ngModel 
+          name="complaint" 
+          required 
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-detail focus:ring-detail sm:text-sm"
+          rows="4"></textarea>
+      </div>
+      <button 
+        type="submit" 
+        [disabled]="!complaintForm.valid"
+        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-detail disabled:bg-gray-300">
+          Enviar
+      </button>
+    </form>
   </div>
-  <div>
-    <label for="email">Correo electrónico:</label>
-    <input
-      type="email"
-      ngModel
-      id="email"
-      name="email"
-      required="required">
-  </div>
-  <div>
-    <label for="complaint">Reclamación o Petición:</label>
-    <textarea id="complaint" ngModel name="complaint" required></textarea>
-  </div>
-  <button type="submit" [disabled]="!complaintForm.valid"> Enviar </button>
-</form>
+</div>

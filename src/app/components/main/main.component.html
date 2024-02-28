@@ -1,5 +1,5 @@
-<main class="main-content">
-  <h2>Blue Print</h2>
+<main class="main-content bg-blue-50 text-gray-700 min-h-screen">
+  <h2 class="text-3xl font-bold text-center my-6">Blue Print</h2>
     <p>
       ¡Bienvenido a Blue Print, la plataforma digital de consultas para sistemas
       de carteras de inversiones y planes de pensiones de empleo! Somos un
@@ -54,4 +54,14 @@
       <li>Marcos Almorox</li>
     </ul>
     <p>¡Gracias por elegir nuestra plataforma para gestionar tus inversiones y planes de pensiones! Estamos aquí para ayudarte a alcanzar tus metas financieras con confianza y seguridad.</p>
+
+    <button class="fixed bottom-10 right-10 z-50 p-2 bg-blue-500 text-white rounded-full shadow-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center h-12 w-12" (click)="toggleChat()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h3a2 2 0 012 2v1h2V7a2 2 0 012-2h2a2 2 0 012 2v1z" />
+      </svg>
+    </button>
+    
+    <div *ngIf="isChatOpen" class="fixed bottom-16 right-4 z-10 p-4 w-80 h-96 bg-white shadow-lg rounded-lg overflow-auto">
+      <app-chat></app-chat>
+    </div>  
 </main>

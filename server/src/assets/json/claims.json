@@ -1,11 +1,16 @@
 {
   "claims": [
     {
-      "userid": "1",
       "name": "Juan Pérez",
       "email": "correo@mail.es",
       "description": "Discrepancia en el monto de las aportaciones.",
       "date": "2024-02-01"
+    },
+    {
+      "name": "Maksym Dovgan",
+      "email": "maxdovgan959@gmail.com",
+      "complaint": "ASd",
+      "date": "2024-02-27"
     }
   ]
 }

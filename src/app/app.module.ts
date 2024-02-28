@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { ComplaintFormComponent } from './complaint-form/complaint-form.component';
 // import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { HeaderComponent } from './shared/header/header.component';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     // SharedModule,
     ComplaintFormComponent,
     AuthModule
