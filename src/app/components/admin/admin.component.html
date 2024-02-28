@@ -1,38 +1,37 @@
 <main class="main-content">
-    <div class="header-main-content">
-      <h2 class="header-main-title">Blue Print</h2>
-      <div class="header-main-user">
-        <span class="header-main-user-type">Admin:</span>
-        <span class="header-main-user-name">
-          <!-- Aquí se genera el nombre del admin -->
-        </span>
-        <span class="header-main-user-surname">
-          <!-- Aquí se genera el apellido del admin -->
-        </span>
-      </div>
+  <div class="header-main-content">
+    <h2 class="header-main-title">Blue Print</h2>
+    <div class="header-main-user">
+      <span class="header-main-user-type">Admin:</span>
+      <span class="header-main-user-name">
+        <!-- Aquí se genera el nombre del admin -->
+      </span>
+      <span class="header-main-user-surname">
+        <!-- Aquí se genera el apellido del admin -->
+      </span>
     </div>
-    <div class="subheader-main-content">
-      <h3 class="subheader-main-title">Promotores | Ciudadanos | Entidades</h3>
-    </div>
-    <table class="table-main-content">
-      <thead class="table-main-header-transactions-titles">
-        <th class="table-main-header-title">Usuario</th>
-        <th class="table-main-header-title">Promotor</th>
-        <th class="table-main-header-title">Entidad</th>
-        <th class="table-main-header-title">Mes</th>
-        <th class="table-main-header-title">Aportación</th>
-        <th class="table-main-header-title">Total</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let contribution of contributions">
-          <td>{{ contribution.userId }}</td>
-          <td>{{ contribution.financialEntityId }}</td>
-          <td>{{ contribution.promoterId }}</td> <!-- Aquí podrías necesitar ajustar para mostrar el nombre en lugar del ID -->
-          <td>{{ contribution.date | date: 'longDate' }}</td>
-          <td>{{ contribution.monthlyContributions | currency }}</td>
-          <td>{{ contribution.totalAmount | currency }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
-  
+  </div>
+  <div class="subheader-main-content">
+    <h3 class="subheader-main-title">Promotores | Ciudadanos | Entidades</h3>
+  </div>
+  <table class="table-main-content">
+    <thead class="table-main-header-transactions-titles">
+      <th class="table-main-header-title">Usuario</th>
+      <th class="table-main-header-title">Promotor</th>
+      <th class="table-main-header-title">Entidad</th>
+      <th class="table-main-header-title">Mes</th>
+      <th class="table-main-header-title">Aportación</th>
+      <th class="table-main-header-title">Total</th>
+    </thead>
+    <tbody  class="table-main-transactions-content">
+      <tr *ngFor="let contribution of contributions" class="table-main-transaction">
+        <td class="table-main-data">{{ contribution.userName }}</td> 
+        <td class="table-main-data">{{ contribution.promoterName }}</td> 
+        <td class="table-main-data">{{ contribution.financialEntityName }}</td> 
+        <td class="table-main-data">{{ contribution.date | date: 'longDate' }}</td>
+        <td class="table-main-data">{{ contribution.monthlyContributions | currency }}</td>
+        <td class="table-main-data">{{ contribution.totalAmount | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
