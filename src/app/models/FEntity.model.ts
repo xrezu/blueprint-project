@@ -1,5 +1,6 @@
 export interface FinancialEntity {
-    id: string;
+contributions: any;
+    financialEntityId: string;
     name: string;
     contactEmail: string;
   }

@@ -28,11 +28,11 @@ export class DataService {
   private apiUrl = 'http://localhost:3000';
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('/assets/data/users.json');
+    return this.http.get<User[]>(`${this.apiUrl}/users`);
   }
 
   getContributions(): Observable<ContributionsResponse> {
-    return this.http.get<ContributionsResponse>(`${this.apiUrl}/citizen`);
+    return this.http.get<ContributionsResponse>(`${this.apiUrl}/contributions`);
   }
 
   
@@ -40,7 +40,7 @@ export class DataService {
     return this.http.get<Promoter[]>(`${this.apiUrl}/promoter`);
   }
 
-  getFinancialEntities(): Observable<FinancialEntity[]> {
-    return this.http.get<FinancialEntity[]>(`${this.apiUrl}/FEntity`);
-  }
+  getFinancialEntities(): Observable<{ financialEntities: FinancialEntity[] }> {
+    return this.http.get<{ financialEntities: FinancialEntity[] }>(`${this.apiUrl}/FEntity`);
+}
 }

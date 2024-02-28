@@ -15,63 +15,67 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./citizen.component.css'],
 })
 export class CitizenComponent implements OnInit {
-  //TODO: descomentar la variable cuando se termine la parte de autentificación
-  //userId: string | null = null;
+  userId: string | null = "1";
 
   contributions: UserContribution[] = [];
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    //TODO: descomentar la línea cuando se termine la parte de autentificación
-    //this.userId = sessionStorage.getItem('userId');
-    forkJoin({
-      contributions: this.dataService.getContributions(),
-      promoters: this.dataService.getPromoters(),
-      financialEntities: this.dataService.getFinancialEntities()
-    }).pipe(
-      map(({ contributions, promoters, financialEntities }) => 
-        contributions.contributions.map(userContribution => ({
-          ...userContribution,
-          contributions: userContribution.contributions.map(contribution => ({
-            ...contribution,
-            // Accede directamente a los arrays sin buscar una propiedad adicional
-            promoterName: promoters.find((p: Promoter) => p.id === contribution.promoterId)?.name,
-            financialEntityName: financialEntities.find((f: FinancialEntity) => f.id === contribution.financialEntityId)?.name
-          }))
-        }))
-      )
-    ).subscribe({
-      next: (enrichedContributions) => {
-        this.contributions = enrichedContributions;
-      },
-      error: (error) => console.error('Error al obtener las contribuciones:', error)
-    });
+    // this.userId = sessionStorage.getItem('userId');
+    this.loadContributions();
   }
 
   loadContributions(): void {
-    this.dataService.getContributions().subscribe({
-      next: (response) => {
-        this.contributions = response.contributions;
-      },
-      error: (error) =>
-        console.error('Error al obtener las contribuciones:', error),
-    });
+    forkJoin({
+      contributions: this.dataService.getContributions(),
+      financialEntities: this.dataService.getFinancialEntities(),
+    })
+      .pipe(
+        map(({ contributions, financialEntities }) => {
+          console.log('Contribuciones:', contributions); // Agrega este console.log para verificar las contribuciones
+          console.log('Entidades financieras:', financialEntities); // Agrega este console.log para verificar las entidades financieras
+  
+          return {
+            ...contributions,
+            contributions: contributions.contributions.map(
+              (userContribution) => {
+                return {
+                  ...userContribution,
+                  contributions: userContribution.contributions.map(
+                    (contribution) => {
+                      const financialEntityName =
+                        financialEntities.financialEntities.find((fe) => {
+                          return (
+                            fe.financialEntityId ===
+                            contribution.financialEntityId
+                          );
+                        })?.name;
+  
+                      return {
+                        ...contribution,
+                        financialEntityName, // Esto añade el nombre encontrado a cada contribución
+                      };
+                    }
+                  ),
+                };
+              }
+            ),
+          };
+        })
+      )
+      .subscribe({
+        next: (enrichedData) => {
+          console.log('Datos enriquecidos:', enrichedData); // Agrega este console.log para verificar los datos enriquecidos
+  
+          this.contributions = enrichedData.contributions.filter(contribution => contribution.userId === this.userId);
+          console.log('Contribuciones filtradas:', this.contributions); // Agrega este console.log para verificar las contribuciones filtradas
+        },
+        error: (error) =>
+          console.error(
+            'Error al combinar las contribuciones con entidades financieras:',
+            error
+          ),
+      });
   }
-
-  // TODO: sustituir el método loadContributions() por el de abajo cuando se termine la parte de autentificación
-  // loadContributions(): void {
-  //   this.dataService.getContributions().subscribe({
-  //     next: (response) => {
-  //       if (this.userId) {
-  //         // Filtrar las contribuciones basadas en el userId
-  //         this.contributions = response.contributions.filter(contribution => contribution.userId === this.userId);
-  //       } else {
-  //         // Manejar el caso en que no hay un userId (usuario no logueado o error)
-  //         this.contributions = [];
-  //       }
-  //     },
-  //     error: (error) => console.error('Error al obtener las contribuciones:', error)
-  //   });
-  // }
 }

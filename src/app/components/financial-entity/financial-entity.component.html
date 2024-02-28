@@ -1,1 +1,31 @@
-<p>financial-entity works!</p>
+<main class="main-content">
+  <div class="header-main-content">
+    <h2 class="header-main-title">Blue Print</h2>
+    <span class="header-main-user-name">
+      <!-- Aquí se genera el nombre de la entidad bancaria -->
+    </span>
+  </div>
+  <div class="subheader-main-content">
+    <h3 class="subheader-main-title">financial entity(nombre aqui cuando se loguee)</h3>
+  </div>
+  
+  
+  <table class="table-main-content">
+    <thead class="table-main-header-transactions-titles">
+      <th class="table-main-header-title">Usuario</th>
+      <th class="table-main-header-title">Promotor</th>
+      <th class="table-main-header-title">Mes</th>
+      <th class="table-main-header-title">Aportación</th>
+      <th class="table-main-header-title">Total</th>
+    </thead>
+    <tbody *ngFor="let entity of financialEntities" class="table-main-transactions-content">
+      <tr *ngFor="let contribution of entity.contributions" class="table-main-transaction">
+        <td class="table-main-data">{{ contribution.userName }}</td>
+        <td class="table-main-data">{{ contribution.promoterName }}</td>
+        <td class="table-main-data">{{ contribution.date | date: 'MMM y' }}</td>
+        <td class="table-main-data">{{ contribution.monthlyContributions | currency }}</td>
+        <td class="table-main-data">{{ contribution.total | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
