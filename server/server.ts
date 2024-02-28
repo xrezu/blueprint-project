@@ -151,20 +151,18 @@ app.get('/FEntity', (req, res) => {
     const filePath = path.join(__dirname, 'src', 'assets', 'json', 'financialEntities.json'); // Asegúrate de que la ruta al archivo sea correcta
 
     fs.readFile(filePath, 'utf8', (err, data) => {
-
-    fs.readFile(faqFilePath, { encoding: 'utf-8' }, (err, data) => {
-
         if (err) {
-            return res.status(500).json({ message: 'Error reading FAQ file' });
+            console.error('Error leyendo el archivo de usuarios:', err);
+            return res.status(500).send('Error al leer el archivo de datos');
         }
-        
-        const faqs = JSON.parse(data);
-        const respuesta = faqs.find((faq: any) => faq.pregunta.toLowerCase() === preguntaUsuario.toLowerCase());
 
-        if (respuesta) {
-            res.json({ pregunta: preguntaUsuario, respuesta: respuesta.respuesta });
-        } else {
-            res.json({ pregunta: preguntaUsuario, respuesta: "Lo siento, no tengo una respuesta para eso." });
+        // Intenta parsear el JSON y enviarlo como respuesta
+        try {
+            const FEntity = JSON.parse(data);
+            res.json(FEntity);
+        } catch (parseError) {
+            console.error('Error al parsear los datos de usuarios:', parseError);
+            res.status(500).send('Error al procesar los datos de usuarios');
         }
     });
 });
