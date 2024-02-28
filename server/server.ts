@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
+import { User } from '../src/app/models/user.model';
+//import session from 'express-session';
 import path from 'path';
 
 const app = express();
@@ -10,7 +12,9 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-//Declaramos las rutas de los archivos JSON
+// Ruta absoluta del archivo de usuarios
+const usersFileJSON = path.resolve(__dirname, 'src/assets/json/users.json');
+// Ruta absoluta del archivo de reclamaciones, ajustar según la ubicación real
 const claimsFilePath = path.resolve(__dirname, 'src/assets/json/claims.json');
 const faqFilePath = path.resolve(__dirname, 'src/assets/json/faq.json');
 
@@ -52,6 +56,35 @@ app.post('/claims', (req: Request, res: Response) => {
     });
 });
 
+
+// Ruta para manejar el inicio de sesión
+app.post('/api/login', (req: Request, res: Response) => {
+    const { username, password } = req.body;
+
+    fs.readFile(usersFileJSON, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error al leer el archivo users.json:', err);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        try {
+            const parsedData = JSON.parse(data);
+            // Accede a la propiedad 'users' dentro del objeto JSON
+            const users = parsedData.users;
+            const user = users.find((user: User) => user.username === username && user.password === password);
+            if (user) {
+                // Usuario encontrado
+                res.json({ username: user.username, role: user.role });
+            } else {
+                // Usuario no encontrado
+                res.status(401).json({ error: 'Credenciales incorrectas' });
+            }
+        } catch (error) {
+            console.error('Error al analizar el archivo JSON:', error);
+            res.status(500).json({ error: 'Error interno del servidor' });
+        }
+    });
+});
+
 // Endpoint para consultar preguntas al chatbot
 app.post('/faq', (req: Request, res: Response) => {
     const preguntaUsuario = req.body.pregunta;
@@ -71,7 +104,6 @@ app.post('/faq', (req: Request, res: Response) => {
         }
     });
 });
-
 
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
