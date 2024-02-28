@@ -25,5 +25,3 @@ import { AdminComponent } from './components/admin/admin.component';
 export class AppComponent {
   title = 'app';
 }
-
-
