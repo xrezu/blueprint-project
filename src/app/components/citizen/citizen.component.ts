@@ -15,16 +15,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./citizen.component.css'],
 })
 export class CitizenComponent implements OnInit {
-  //TODO: descomentar la variable cuando se termine la parte de autentificación
-  //userId: string | null = null;
+  userId: string | null = null;
 
   contributions: UserContribution[] = [];
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    //TODO: descomentar la línea cuando se termine la parte de autentificación
-    //this.userId = sessionStorage.getItem('userId');
+    this.userId = sessionStorage.getItem('userId');
     this.loadContributions();
   }
 
@@ -35,7 +33,9 @@ export class CitizenComponent implements OnInit {
     })
       .pipe(
         map(({ contributions, financialEntities }) => {
-          // Asegúrate de acceder a la propiedad correcta aquí
+          console.log('Contribuciones:', contributions); // Agrega este console.log para verificar las contribuciones
+          console.log('Entidades financieras:', financialEntities); // Agrega este console.log para verificar las entidades financieras
+  
           return {
             ...contributions,
             contributions: contributions.contributions.map(
@@ -51,7 +51,7 @@ export class CitizenComponent implements OnInit {
                             contribution.financialEntityId
                           );
                         })?.name;
-
+  
                       return {
                         ...contribution,
                         financialEntityName, // Esto añade el nombre encontrado a cada contribución
@@ -66,7 +66,10 @@ export class CitizenComponent implements OnInit {
       )
       .subscribe({
         next: (enrichedData) => {
-          this.contributions = enrichedData.contributions;
+          console.log('Datos enriquecidos:', enrichedData); // Agrega este console.log para verificar los datos enriquecidos
+  
+          this.contributions = enrichedData.contributions.filter(contribution => contribution.userId === this.userId);
+          console.log('Contribuciones filtradas:', this.contributions); // Agrega este console.log para verificar las contribuciones filtradas
         },
         error: (error) =>
           console.error(
@@ -75,20 +78,4 @@ export class CitizenComponent implements OnInit {
           ),
       });
   }
-
-  // TODO: implementar el filtro en funcion del usuario cuando se termine la parte de autentificación
-  // loadContributions(): void {
-  //   this.dataService.getContributions().subscribe({
-  //     next: (response) => {
-  //       if (this.userId) {
-  //         // Filtrar las contribuciones basadas en el userId
-  //         this.contributions = response.contributions.filter(contribution => contribution.userId === this.userId);
-  //       } else {
-  //         // Manejar el caso en que no hay un userId (usuario no logueado o error)
-  //         this.contributions = [];
-  //       }
-  //     },
-  //     error: (error) => console.error('Error al obtener las contribuciones:', error)
-  //   });
-  // }
 }

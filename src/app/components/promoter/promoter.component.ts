@@ -14,6 +14,7 @@ import { User } from '@/app/models/user.model';
   styleUrl: './promoter.component.css'
 })
 export class PromoterComponent implements OnInit {
+  
   promoters: Promoter[] = []; 
   promoterContributions: { contributions: any; id: string; name: string; contactEmail: string; }[] | undefined;
 
