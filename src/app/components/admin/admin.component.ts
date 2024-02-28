@@ -19,37 +19,47 @@ export class AdminComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
-    // this.loadContributions();
+    this.loadContributions();
   }
   
-  // loadContributions(): void {
-  //    forkJoin({
-  //     users: this.dataService.getUsers(),
-  //     promoters: this.dataService.getPromoters(),
-  //     financialEntities: this.dataService.getFinancialEntities(),
-  //     contributions: this.dataService.getContributions()
-  //   })
-  //   .pipe(
-  //     map(({ users, promoters, financialEntities, contributions }) => {
-  //       const userMap = new Map(users.map(user => [user.id, user.name]));
-  //       const promoterMap = new Map(promoters.map(promoter => [promoter.id, promoter.name]));
-  //       const financialEntityMap = new Map(financialEntities.map(entity => [entity.id, entity.name]));
+  loadContributions(): void {
+    forkJoin({
+      users: this.dataService.getUsers(),
+      promoters: this.dataService.getPromoters(),
+      financialEntitiesObj: this.dataService.getFinancialEntities(),
+      contributionsObj: this.dataService.getContributions()
+    })
+    .pipe(
+      map(({ users, promoters, financialEntitiesObj, contributionsObj }) => {
+        const contributions = contributionsObj.contributions;
+        const financialEntities = financialEntitiesObj.financialEntities;
 
-  //       return contributions.contributions.flatMap(contribution => 
-  //         contribution.contributions.map(subContribution => ({
-  //           ...subContribution,
-  //           userName: userMap.get(contribution.userId) || 'Unknown User',
-  //           promoterName: promoterMap.get(subContribution.promoterId) || 'Unknown Promoter',
-  //           financialEntityName: financialEntityMap.get(subContribution.financialEntityId) || 'Unknown Entity',
-  //         }))
-  //       );
-  //     })
-  //   )
-  //   .subscribe({
-  //     next: (transformedContributions) => {
-  //       this.contributions = transformedContributions;
-  //     },
-  //     error: (error) => console.error('Error loading and transforming contributions', error),
-  //   });
-  // }
+
+        return contributions.map(contribution => {
+          return {
+            ...contribution,
+            contributions: contribution.contributions.map(subContribution => {
+              const user = users.find(u => u.id === subContribution.userId);
+              const promoter = promoters.find(p => p.id === subContribution.promoterId);
+              const financialEntity = financialEntities.find(e => e.financialEntityId === subContribution.financialEntityId);
+
+              return {
+                ...subContribution,
+                userName: user ? user.name : 'Unknown User',
+                promoterName: promoter ? promoter.name : 'Unknown Promoter',
+                financialEntityName: financialEntity ? financialEntity.name : 'Unknown Entity'
+              };
+            })
+          };
+        });
+      })
+    )
+    .subscribe({
+      next: (enrichedContributions) => {
+        this.contributions = enrichedContributions;
+        console.log('Admin contributions enriched:', this.contributions);
+      },
+      error: (error) => console.error('Error loading and enriching admin contributions', error),
+    });
+  }
 }
