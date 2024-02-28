@@ -56,7 +56,6 @@ app.post('/claims', (req: Request, res: Response) => {
     });
 });
 
-
 // Endpoint para obtener la información de los usuarios
 app.get('/users', (req, res) => {
     const filePath = path.join(__dirname, 'src', 'assets', 'json', 'users.json'); // Asegúrate de que la ruta al archivo sea correct
@@ -83,7 +82,22 @@ app.get('/users', (req, res) => {
 app.get('/contributions', (req, res) => {
     const filePath = path.join(__dirname, 'src', 'assets', 'json', 'contributions.json'); // Asegúrate de que la ruta al archivo sea correcta
 
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error leyendo el archivo de usuarios:', err);
+            return res.status(500).send('Error al leer el archivo de datos');
+        }
 
+        // Intenta parsear el JSON y enviarlo como respuesta
+        try {
+            const contributions = JSON.parse(data);
+            res.json(contributions);
+        } catch (parseError) {
+            console.error('Error al parsear los datos de usuarios:', parseError);
+            res.status(500).send('Error al procesar los datos de usuarios');
+        }
+    });
+});
 // Ruta para manejar el inicio de sesión
 app.post('/api/login', (req: Request, res: Response) => {
     const { username, password } = req.body;
