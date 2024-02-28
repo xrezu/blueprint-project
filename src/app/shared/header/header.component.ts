@@ -16,9 +16,13 @@ export class HeaderComponent {
   isLoggedIn: boolean = false;
   loginFormVisible: boolean = false;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
     // Verificamos si el usuario está autenticado al inicializar el componente
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.authService.isLoggedIn$().subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   toggleLoginForm(): void {
