@@ -1,25 +1,31 @@
 <!-- login.component.html -->
-<div class="login flex justify-between items-center p-4 fixed w-full top-0 bg-white z-10">
-  <form class="" (submit)="validateForm($event)" method="post">
-    <label class="" for="username">
-      Nombre de usuario:
-    </label>
-    <input
-      type="text"
-      [(ngModel)]="username"
-      id="username"
-      name="username"
-    />
-    <label class="" for="password">
-      Contraseña:
-    </label>
-    <input
-      type="password"
-      [(ngModel)]="password"
-      id="password"
-      name="password"
-    />
-    <button type="submit"> Entrar </button>
+<div class="login absolute">
+  <form class="flex flex-col w-full" (submit)="validateForm($event)" method="post">
+    <div class="username-zone">
+      <label class="mb-2" for="username">
+        Nombre de usuario:
+      </label>
+      <input
+        type="text"
+        [(ngModel)]="username"
+        id="username"
+        name="username"
+        class="mb-4 px-4 py-2 border rounded-md w-full"
+      />
+    </div>
+    <div class="password-zone">
+      <label class="mb-2" for="password">
+        Contraseña:
+      </label>
+      <input
+        type="password"
+        [(ngModel)]="password"
+        id="password"
+        name="password"
+        class="mb-4 px-4 py-2 border rounded-md w-full"
+      />
+    </div>
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"> Entrar </button>
   </form>
   <!-- Mostramos un mensaje de error si existe -->
   <div *ngIf="errorMessage" class="error-alert-zone">

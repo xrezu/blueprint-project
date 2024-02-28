@@ -40,6 +40,7 @@ export class LoginComponent {
           // Usuario autenticado con éxito
           console.log('Login exitoso');
           this.isLoggedIn = true;
+          //console.log(user);
         } else {
           // Se han introducido datos erroneos, por lo que saltará un mensaje de errorFalló la autenticación
           this.errorMessage = 'Credenciales incorrectas';
