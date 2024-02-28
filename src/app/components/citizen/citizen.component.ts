@@ -15,14 +15,14 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./citizen.component.css'],
 })
 export class CitizenComponent implements OnInit {
-  userId: string | null = null;
+  userId: string | null = "1";
 
   contributions: UserContribution[] = [];
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.userId = sessionStorage.getItem('userId');
+    // this.userId = sessionStorage.getItem('userId');
     this.loadContributions();
   }
 
