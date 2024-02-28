@@ -1,8 +1,8 @@
 <!-- login.component.html -->
 <div class="login absolute">
   <form class="flex flex-col w-full" (submit)="validateForm($event)" method="post">
-    <div class="username-zone">
-      <label class="mb-2" for="username">
+    <div class="username-zone mb-4">
+      <label class="block mb-2" for="username">
         Nombre de usuario:
       </label>
       <input
@@ -10,11 +10,11 @@
         [(ngModel)]="username"
         id="username"
         name="username"
-        class="mb-4 px-4 py-2 border rounded-md w-full"
+        class="px-4 py-2 border rounded-md w-full"
       />
     </div>
-    <div class="password-zone">
-      <label class="mb-2" for="password">
+    <div class="password-zone mb-4">
+      <label class="block mb-2" for="password">
         Contraseña:
       </label>
       <input
@@ -22,7 +22,7 @@
         [(ngModel)]="password"
         id="password"
         name="password"
-        class="mb-4 px-4 py-2 border rounded-md w-full"
+        class="px-4 py-2 border rounded-md w-full"
       />
     </div>
     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"> Entrar </button>
