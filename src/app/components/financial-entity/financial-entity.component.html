@@ -1,12 +1,12 @@
 <main class="main-content">
   <div class="header-main-content">
     <h2 class="header-main-title">Blue Print</h2>
-    <span class="header-main-user-name">
-      <!-- Aquí se genera el nombre de la entidad bancaria -->
+    <span *ngFor="let entity of financialEntities" class="header-main-user-name">
+      {{ entity.name }}
     </span>
   </div>
   <div class="subheader-main-content">
-    <h3 class="subheader-main-title">financial entity(nombre aqui cuando se loguee)</h3>
+    <h3 class="subheader-main-title">citizen | promotor</h3>
   </div>
   
   
