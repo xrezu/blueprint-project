@@ -1,0 +1,26 @@
+[
+    {
+      "pregunta": "¿Cómo puedo ver mi información sobre aportaciones económicas?",
+      "respuesta": "Como usuario-ciudadano, puedes visualizar tu información sobre aportaciones económicas y derechos consolidados accediendo a la sección de 'Mis Aportaciones' después de iniciar sesión."
+    },
+    {
+      "pregunta": "¿Cómo puedo añadir información sobre nuevos usuarios-ciudadanos con planes de pensiones?",
+      "respuesta": "Como entidad bancaria, debes acceder a la sección 'Gestión de Usuarios' y seleccionar la opción para añadir nuevos usuarios-ciudadanos con sus respectivos planes de pensiones."
+    },
+    {
+      "pregunta": "¿Dónde encuentro las aportaciones realizadas por mí como promotor?",
+      "respuesta": "Como usuario-promotor, puedes visualizar las aportaciones realizadas por ti accediendo a la sección 'Aportaciones Realizadas', donde encontrarás un listado detallado."
+    },
+    {
+      "pregunta": "¿Cómo puedo presentar una reclamación relacionada con la protección de datos personales?",
+      "respuesta": "Para presentar reclamaciones o peticiones relacionadas con la protección de datos, accede a la sección 'Reclamaciones' y completa el formulario disponible. Tu solicitud será procesada conforme al Reglamento 679/2016 y la LOPDGDD 3/2018."
+    },
+    {
+      "pregunta": "¿Cómo se detectan los datos fraudulentos en el sistema?",
+      "respuesta": "El sistema implementa un mecanismo de análisis de fraude comparando la información suministrada por las entidades financieras con datos oficiales de la Agencia Tributaria para asegurar la veracidad de las aportaciones."
+    },
+    {
+      "pregunta": "¿Cómo puedo acceder a informes y estadísticas?",
+      "respuesta": "Los usuarios con acceso administrativo pueden generar informes y consultar estadísticas desde el cuadro de mando, seleccionando la opción 'Informes y Estadísticas' en el menú principal."
+    } 
+  ]
