@@ -1,1 +1,31 @@
-<p>promoter works!</p>
+<main class="main-content">
+  <div class="header-main-content">
+    <h2 class="header-main-title">Blue Print</h2>
+    <div class="header-main-user">
+      <span class="header-main-user-type">Promotor:</span>
+      <span *ngFor="let promoter of promoterContributions" class="header-main-user-name">
+        {{ promoter.name }}
+      </span>
+    </div>
+  </div>
+  <div class="subheader-main-content">
+    <h3 class="subheader-main-title">Aportaciones</h3>
+  </div>
+  
+  <table class="table-main-content">
+    <thead class="table-main-header-transactions-titles">
+      <th class="table-main-header-title">Usuario</th>
+      <th class="table-main-header-title">Entidad financiera</th>
+      <th class="table-main-header-title">Mes</th>
+      <th class="table-main-header-title">Aportación</th>
+    </thead>
+    <tbody *ngFor="let promoter of promoterContributions" class="table-main-transactions-content">
+      <tr *ngFor="let contribution of promoter.contributions; let i = index" class="table-main-transaction">
+        <td class="table-main-data">{{ contribution.userName }}</td>
+        <td class="table-main-data">{{ contribution.financialEntityName }}</td>
+        <td class="table-main-data">{{ contribution.date | date:'MMMM yyyy' }}</td>
+        <td class="table-main-data">{{ contribution.monthlyContributions | currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>

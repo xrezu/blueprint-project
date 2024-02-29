@@ -1,6 +1,15 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 .main-content {
-  background-color: #f0f9ff;
-  color: #334155;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: #f8fcf9;
+  gap: 10px;
+  height: 100%;
 }
 
 .project-info h2 {
@@ -10,3 +19,4 @@
 .project-info p {
   color: #334155;
 }
+

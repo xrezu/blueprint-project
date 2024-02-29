@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../../services/data.service';
-import { UserContribution } from '../../models/contributions.interface';
-import { Promoter } from '../../models/promoter.model';
-import { FinancialEntity } from '../../models/FEntity.model';
+import { DataService } from '@/app/services/data.service';
+import { AuthService } from '@/app/services/auth.service';
+import { UserContribution } from '@/app/models/contributions.interface';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,63 +14,52 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./citizen.component.css'],
 })
 export class CitizenComponent implements OnInit {
-  //TODO: descomentar la variable cuando se termine la parte de autentificación
-  //userId: string | null = null;
+  userId: string | null = null;
+  contributions: any[] = []; // Ajustado para incluir información adicional
 
-  contributions: UserContribution[] = [];
-
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private authService: AuthService) {}
 
   ngOnInit() {
-    //TODO: descomentar la línea cuando se termine la parte de autentificación
-    //this.userId = sessionStorage.getItem('userId');
-    forkJoin({
-      contributions: this.dataService.getContributions(),
-      promoters: this.dataService.getPromoters(),
-      financialEntities: this.dataService.getFinancialEntities()
-    }).pipe(
-      map(({ contributions, promoters, financialEntities }) => 
-        contributions.contributions.map(userContribution => ({
-          ...userContribution,
-          contributions: userContribution.contributions.map(contribution => ({
-            ...contribution,
-            // Accede directamente a los arrays sin buscar una propiedad adicional
-            promoterName: promoters.find((p: Promoter) => p.id === contribution.promoterId)?.name,
-            financialEntityName: financialEntities.find((f: FinancialEntity) => f.id === contribution.financialEntityId)?.name
-          }))
-        }))
-      )
-    ).subscribe({
-      next: (enrichedContributions) => {
-        this.contributions = enrichedContributions;
-      },
-      error: (error) => console.error('Error al obtener las contribuciones:', error)
-    });
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.userId = currentUser.id.toString();
+    }
+    this.loadContributions();
   }
 
   loadContributions(): void {
-    this.dataService.getContributions().subscribe({
-      next: (response) => {
-        this.contributions = response.contributions;
-      },
-      error: (error) =>
-        console.error('Error al obtener las contribuciones:', error),
-    });
-  }
+    forkJoin({
+      contributions: this.dataService.getContributions(),
+      financialEntities: this.dataService.getFinancialEntities(),
+      users: this.dataService.getUsers(), // Obtener usuarios
+    })
+      .pipe(
+        map(({ contributions, financialEntities, users }) => {
+          return contributions.contributions.map(contribution => {
+            // Encuentra el nombre del usuario basado en userId
+            const userName = users.find(user => user.id === contribution.userId)?.name || 'Nombre no encontrado';
 
-  // TODO: sustituir el método loadContributions() por el de abajo cuando se termine la parte de autentificación
-  // loadContributions(): void {
-  //   this.dataService.getContributions().subscribe({
-  //     next: (response) => {
-  //       if (this.userId) {
-  //         // Filtrar las contribuciones basadas en el userId
-  //         this.contributions = response.contributions.filter(contribution => contribution.userId === this.userId);
-  //       } else {
-  //         // Manejar el caso en que no hay un userId (usuario no logueado o error)
-  //         this.contributions = [];
-  //       }
-  //     },
-  //     error: (error) => console.error('Error al obtener las contribuciones:', error)
-  //   });
-  // }
+            return {
+              ...contribution,
+              userName, // Añade el nombre del usuario a cada contribución
+              contributions: contribution.contributions.map(subContribution => {
+                const financialEntityName = financialEntities.financialEntities.find(fe => fe.financialEntityId === subContribution.financialEntityId)?.name;
+
+                return {
+                  ...subContribution,
+                  financialEntityName,
+                };
+              }),
+            };
+          }).filter(contribution => contribution.userId === this.userId); // Filtra por el userId si es necesario
+        })
+      )
+      .subscribe({
+        next: (result) => {
+          console.log('Datos enriquecidos:', result);
+          this.contributions = result;
+        },
+        error: (error) => console.error('Error al cargar las contribuciones y usuarios:', error),
+      });
+  }
 }
