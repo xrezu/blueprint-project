@@ -10,6 +10,7 @@ import { User } from '../models/user.model';
 })
 
 export class AuthService {
+
   private isLoggedInSubject: BehaviorSubject<boolean>;
 
   constructor(private http: HttpClient) {
@@ -18,15 +19,17 @@ export class AuthService {
 
   // Función para iniciar sesión
   login(username: string, password: string): Observable<User> {
-    return this.http.post<User>('/api/login', {username, password})
+    console.log("Intentando iniciar sesión con:", username, password);
+    return this.http.post<User>('/api/login', { username, password })
       .pipe(
         map(user => {
           if (user && user.username && user.role) {
-            // Almacenar el nombre de usuario y el rol en sessionStorage
+            console.log("Usuario autenticado:", user);
+            sessionStorage.setItem('userRole', user.role);
             const currentUser = { username: user.username, role: user.role };
             sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
             this.isLoggedInSubject.next(true);
-        }
+          }
           return user;
         })
       );
@@ -36,6 +39,12 @@ export class AuthService {
   getCurrentUser(): User | null {
     const userJSON = sessionStorage.getItem('currentUser');
     return userJSON ? JSON.parse(userJSON) : null;
+  }
+
+  getUserRole(): string | null {
+    const currentUser = this.getCurrentUser();
+    console.log("Rol del usuario obtenido:", currentUser?.role);
+    return currentUser?.role || null;
   }
 
   // Verificamos si hay un usuario actual almacenado en sessionStorage
@@ -53,4 +62,6 @@ export class AuthService {
     sessionStorage.removeItem('currentUser');
     this.isLoggedInSubject.next(false);
   }
+
+
 }
