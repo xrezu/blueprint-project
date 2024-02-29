@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { UserContribution } from '../../models/contributions.interface';
-import { Promoter } from '../../models/promoter.model';
-import { FinancialEntity } from '../../models/FEntity.model';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -15,14 +13,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./citizen.component.css'],
 })
 export class CitizenComponent implements OnInit {
-  userId: string | null = "1";
-
-  contributions: UserContribution[] = [];
+  userId: string | null = null;
+  contributions: any[] = []; // Ajustado para incluir información adicional
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    // this.userId = sessionStorage.getItem('userId');
+    this.userId = sessionStorage.getItem('userId');
     this.loadContributions();
   }
 
@@ -30,52 +27,35 @@ export class CitizenComponent implements OnInit {
     forkJoin({
       contributions: this.dataService.getContributions(),
       financialEntities: this.dataService.getFinancialEntities(),
+      users: this.dataService.getUsers(), // Obtener usuarios
     })
       .pipe(
-        map(({ contributions, financialEntities }) => {
-          console.log('Contribuciones:', contributions); // Agrega este console.log para verificar las contribuciones
-          console.log('Entidades financieras:', financialEntities); // Agrega este console.log para verificar las entidades financieras
-  
-          return {
-            ...contributions,
-            contributions: contributions.contributions.map(
-              (userContribution) => {
+        map(({ contributions, financialEntities, users }) => {
+          return contributions.contributions.map(contribution => {
+            // Encuentra el nombre del usuario basado en userId
+            const userName = users.find(user => user.id === contribution.userId)?.name || 'Nombre no encontrado';
+
+            return {
+              ...contribution,
+              userName, // Añade el nombre del usuario a cada contribución
+              contributions: contribution.contributions.map(subContribution => {
+                const financialEntityName = financialEntities.financialEntities.find(fe => fe.financialEntityId === subContribution.financialEntityId)?.name;
+
                 return {
-                  ...userContribution,
-                  contributions: userContribution.contributions.map(
-                    (contribution) => {
-                      const financialEntityName =
-                        financialEntities.financialEntities.find((fe) => {
-                          return (
-                            fe.financialEntityId ===
-                            contribution.financialEntityId
-                          );
-                        })?.name;
-  
-                      return {
-                        ...contribution,
-                        financialEntityName, // Esto añade el nombre encontrado a cada contribución
-                      };
-                    }
-                  ),
+                  ...subContribution,
+                  financialEntityName,
                 };
-              }
-            ),
-          };
+              }),
+            };
+          }).filter(contribution => contribution.userId === this.userId); // Filtra por el userId si es necesario
         })
       )
       .subscribe({
-        next: (enrichedData) => {
-          console.log('Datos enriquecidos:', enrichedData); // Agrega este console.log para verificar los datos enriquecidos
-  
-          this.contributions = enrichedData.contributions.filter(contribution => contribution.userId === this.userId);
-          console.log('Contribuciones filtradas:', this.contributions); // Agrega este console.log para verificar las contribuciones filtradas
+        next: (result) => {
+          console.log('Datos enriquecidos:', result);
+          this.contributions = result;
         },
-        error: (error) =>
-          console.error(
-            'Error al combinar las contribuciones con entidades financieras:',
-            error
-          ),
+        error: (error) => console.error('Error al cargar las contribuciones y usuarios:', error),
       });
   }
 }

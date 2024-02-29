@@ -14,13 +14,14 @@ import { User } from '@/app/models/user.model';
   styleUrl: './promoter.component.css'
 })
 export class PromoterComponent implements OnInit {
-  
+  userId: string | null = null;
   promoters: Promoter[] = []; 
   promoterContributions: { contributions: any; id: string; name: string; contactEmail: string; }[] | undefined;
 
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
+    this.userId = sessionStorage.getItem('userId');
     this.loadPromoters();
   }
 
@@ -29,26 +30,21 @@ export class PromoterComponent implements OnInit {
       promoters: this.dataService.getPromoters(),
       contributionsObj: this.dataService.getContributions(),
       financialEntitiesObj: this.dataService.getFinancialEntities(),
-      users: this.dataService.getUsers() // Cambiado a usersObj para claridad
+      users: this.dataService.getUsers()
     })
     .pipe(
       map(({ promoters, contributionsObj, financialEntitiesObj, users }) => {
-        const contributions = contributionsObj.contributions;
-        const financialEntities = financialEntitiesObj.financialEntities;
-        
-        return promoters.map(promoter => {
-          const promoterContributions = contributions.flatMap(contribution => {
+        // Filtrar para obtener solo el promotor logueado.
+        const filteredPromoters = promoters.filter(promoter => promoter.id === this.userId);
+
+        return filteredPromoters.map(promoter => {
+          const promoterContributions = contributionsObj.contributions.flatMap(contribution => {
             return contribution.contributions
               .filter(subContribution => subContribution.promoterId === promoter.id)
               .map(subContribution => {
-                const user = users.find(u => {
-                  return u.id === contribution.userId;
-                });
-                
-                const financialEntityName = financialEntities.find(fe => {
-                  return fe.financialEntityId === subContribution.financialEntityId;
-                })?.name;
-                
+                const user = users.find(u => u.id === contribution.userId);
+                const financialEntityName = financialEntitiesObj.financialEntities.find(fe => fe.financialEntityId === subContribution.financialEntityId)?.name;
+
                 return {
                   userName: user ? user.name : 'Usuario no encontrado',
                   financialEntityName,
@@ -56,7 +52,7 @@ export class PromoterComponent implements OnInit {
                 };
               });
           });
-  
+
           return {
             ...promoter,
             contributions: promoterContributions,
@@ -66,11 +62,10 @@ export class PromoterComponent implements OnInit {
     )
     .subscribe({
       next: (result) => {
-        console.log('Final result:', result);
+        // Como ahora estamos filtrando por el promotor logueado, result debería contener solo la información para ese promotor.
         this.promoterContributions = result;
       },
       error: (error) => console.error('Error loading promoters and contributions', error),
     });
   }
-
 }

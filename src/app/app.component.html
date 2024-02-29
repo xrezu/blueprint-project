@@ -2,11 +2,13 @@
 
 <app-header></app-header>
 
-<!-- <app-financial-entity></app-financial-entity> -->
-<app-admin></app-admin>
-<!-- <app-financial-entity></app-financial-entity> -->
-<!-- <app-promoter></app-promoter> -->
-<!-- <app-citizen></app-citizen> -->
-<!-- <app-main></app-main> -->
+<!-- Muestra el MainComponent si no hay usuario logueado -->
+<app-main *ngIf="!isLoggedIn"></app-main>
+
+<!-- Muestra componentes basados en el rol si hay usuario logueado -->
+<app-admin *ngIf="isLoggedIn && userRole === 'admin'"></app-admin>
+<app-financial-entity *ngIf="isLoggedIn && userRole === 'financialEntity'"></app-financial-entity>
+<app-promoter *ngIf="isLoggedIn && userRole === 'promoter'"></app-promoter>
+<app-citizen *ngIf="isLoggedIn && userRole === 'citizen'"></app-citizen>
 
 <app-footer></app-footer>

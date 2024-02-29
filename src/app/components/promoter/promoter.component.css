@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 40px;
+    margin-top: 90px;
     background-color: #f8fcf9;
     gap: 10px;
 }
