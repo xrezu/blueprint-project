@@ -35,10 +35,13 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.authSubscription = this.authService.isLoggedIn$().subscribe(isLoggedIn => {
-      this.isLoggedIn = isLoggedIn;
-      this.userRole = isLoggedIn ? this.authService.getUserRole() : null;
-    });
+    this.isLoggedIn = true;
+    this.userRole = 'promoter';
+
+  //   this.authSubscription = this.authService.isLoggedIn$().subscribe(isLoggedIn => {
+  //     this.isLoggedIn = isLoggedIn;
+  //     this.userRole = isLoggedIn ? this.authService.getUserRole() : null;
+  //   });
   }
 
   ngOnDestroy() {

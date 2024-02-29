@@ -17,7 +17,7 @@
       "email": "maria.gomez@example.com"
     },
     {
-      "id": "3",
+      "id": "p1",
       "username": "promoter_xyz",
       "password": "xyz123",
       "name": "Empresa XYZ",
@@ -25,7 +25,7 @@
       "email": "contacto@empresaxyz.com"
     },
     {
-      "id": "4",
+      "id": "p2",
       "username": "promoter_abc",
       "password": "abc123",
       "name": "Empresa ABC",
@@ -33,7 +33,7 @@
       "email": "contacto@empresaabc.com"
     },
     {
-      "id": "5",
+      "id": "f1",
       "username": "finentity_bbva",
       "password": "bbva123",
       "name": "BBVA",
@@ -41,7 +41,7 @@
       "email": "info@bbva.com"
     },
     {
-      "id": "6",
+      "id": "f2",
       "username": "finentity_santander",
       "password": "santander123",
       "name": "Santander",

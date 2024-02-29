@@ -3,8 +3,8 @@
     <h2 class="header-main-title">Blue Print</h2>
     <div class="header-main-user">
       <span class="header-main-user-type">Ciudadano:</span>
-      <span class="header-main-user-name">
-        <!-- Aquí se genera el nombre del usuario -->
+      <span *ngFor="let user of contributions" class="header-main-user-name">
+        {{ user.userName }}
       </span>
       <span class="header-main-user-surname">
         <!-- Aquí se genera el apellido del usuario -->
