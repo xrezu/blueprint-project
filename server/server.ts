@@ -5,7 +5,7 @@ import fs from 'fs';
 import { User } from '../src/app/models/user.model';
 //import session from 'express-session';
 import path from 'path';
-import { UploadedFile } from 'express-fileupload';
+//import { UploadedFile } from 'express-fileupload';
 
 const app = express();
 const PORT = 3000;
