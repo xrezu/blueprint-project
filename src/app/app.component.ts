@@ -22,8 +22,7 @@ import { Subscription } from 'rxjs';
     CitizenComponent,
     PromoterComponent,
     FinancialEntityComponent
-    // Asegúrate de importar aquí otros componentes que utilices
-  ], // Importa CommonModule aquí
+  ], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -35,6 +34,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+<<<<<<< HEAD
+=======
+    // this.isLoggedIn = true;
+    // this.userRole = 'financialEntity';
+
+>>>>>>> 0daa1d41d224b10d229ff5dbe8532a5bf167a5d5
     this.authSubscription = this.authService.isLoggedIn$().subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
       this.userRole = isLoggedIn ? this.authService.getUserRole() : null;

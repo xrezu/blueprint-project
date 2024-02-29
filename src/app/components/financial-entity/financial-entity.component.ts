@@ -13,11 +13,15 @@ import { FinancialEntity } from '@/app/models/FEntity.model';
   styleUrls: ['./financial-entity.component.css']
 })
 export class FinancialEntityComponent implements OnInit {
+  userId: string | null = null;
+
   financialEntities: FinancialEntity[] = [];
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.userId = sessionStorage.getItem('userId');
+
     this.loadFinancialEntities();
   }
   
@@ -36,16 +40,18 @@ export class FinancialEntityComponent implements OnInit {
         const contributions = contributionsObj.contributions;
         const financialEntities = financialEntitiesObj.financialEntities;
   
-        return financialEntities.map(entity => {
+        // Primero, filtra para obtener solo la entidad financiera logueada basada en this.userId
+        const filteredFinancialEntities = financialEntities.filter(entity => entity.financialEntityId === this.userId);
+        console.log("Entidades financieras filtradas basadas en userId:", filteredFinancialEntities);
+  
+        return filteredFinancialEntities.map(entity => {
           const entityContributions = contributions.flatMap(contribution => {
             return contribution.contributions
-              .filter((subContribution: any) => subContribution.financialEntityId === entity.financialEntityId)
-              .map((subContribution: any) => {
-                // Depuración: Imprime el userID que estás buscando
+              .filter(subContribution => subContribution.financialEntityId === entity.financialEntityId)
+              .map(subContribution => {
                 console.log("Buscando usuario con ID:", subContribution.userId);
   
                 const user = users.find(u => u.id === contribution.userId);
-                // Depuración: Imprime el resultado de la búsqueda
                 console.log("Usuario encontrado:", user ? `${user.name} (${user.id})` : "No encontrado");
   
                 const promoter = promoters.find(p => p.id === subContribution.promoterId);
@@ -55,7 +61,6 @@ export class FinancialEntityComponent implements OnInit {
                   financialEntityName: entity.name,
                   date: subContribution.date,
                   total: subContribution.totalAmount,
-                  // Asegúrate de que estás accediendo correctamente a monthlyContributions
                   monthlyContributions: subContribution.monthlyContributions,
                 };
               });
@@ -70,10 +75,11 @@ export class FinancialEntityComponent implements OnInit {
     )
     .subscribe({
       next: (result) => {
-        console.log('Entidades Financieras enriquecidas:', result);
+        console.log('Entidades Financieras enriquecidas y filtradas:', result);
         this.financialEntities = result;
       },
-      error: (error) => console.error('Error loading financial entities and contributions', error),
+      error: (error) => console.error('Error al cargar entidades financieras y contribuciones:', error),
     });
   }
+  
 }
