@@ -5,6 +5,7 @@ import fs from 'fs';
 import { User } from '../src/app/models/user.model';
 //import session from 'express-session';
 import path from 'path';
+import { UploadedFile } from 'express-fileupload';
 
 const app = express();
 const PORT = 3000;
@@ -190,38 +191,55 @@ app.post('/faq', (req: Request, res: Response) => {
     });
 });
 
-/*app.post('/upload-contributions', (req, res) => {
+
+async function readAndParseJSON(filePath: string): Promise<any> {
+    const data = await fs.promises.readFile(filePath, 'utf8');
+    return JSON.parse(data);
+}
+
+  function isValidContribution(contribution: any, users: any[], promoters: any[], financialEntities: any[]) {
+    // Verifica la existencia de userId
+    const userExists = users.some(user => user.id === contribution.userId);
+  
+    // Verifica la existencia de cada promoterId y financialEntityId en las contribuciones
+    const validContributions = contribution.contributions.every((c: any) => {
+      const promoterExists = promoters.some(p => p.id === c.promoterId);
+      const financialEntityExists = financialEntities.some(fe => fe.financialEntityId === c.financialEntityId);
+      return promoterExists && financialEntityExists;
+    });
+  
+    return userExists && validContributions;
+  }
+
+  // Endpoint modificado para cargar contribuciones
+  app.post('/upload-contributions', async (req: Request, res: Response) => {
     if (!req.files || !req.files.file) {
         return res.status(400).send('No file was uploaded.');
     }
 
-    // Acceder al archivo subido
-    const uploadedFile = req.files.file;
-
-    // Leer el contenido del archivo subido y parsearlo a JSON
+    const uploadedFile = req.files.file as UploadedFile;
     const newContributions = JSON.parse(uploadedFile.data.toString());
 
-    // Leer el archivo existente, combinar el contenido y escribirlo de nuevo
-    fs.readFile(contributionsFilePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading contributions file:', err);
-            return res.status(500).send('Error reading contributions file.');
-        }
+    try {
+        // Cargar y esperar los datos existentes de manera asíncrona
+        const [users, promoters, financialEntities, existingContributions] = await Promise.all([
+            readAndParseJSON(usersFileJSON),
+            readAndParseJSON(path.resolve(__dirname, 'src/assets/json/promoters.json')),
+            readAndParseJSON(path.resolve(__dirname, 'src/assets/json/financialEntities.json')),
+            readAndParseJSON(contributionsFilePath)
+        ]);
 
-        const existingContributions = JSON.parse(data);
-        // Combinar el contenido. Asumiendo que ambos tienen una estructura similar
-        existingContributions.contributions.push(...newContributions.contributions);
+        // Implementa aquí la lógica para validar y combinar las contribuciones
+        // Asegúrate de manejar la validación y combinación de manera correcta
 
-        // Escribir el archivo actualizado
-        fs.writeFile(contributionsFilePath, JSON.stringify(existingContributions, null, 2), (err) => {
-            if (err) {
-                console.error('Error writing to contributions file:', err);
-                return res.status(500).send('Error writing to contributions file.');
-            }
-            res.send('Contributions updated successfully.');
-        });
-    });
-});*/
+        // Para escribir el archivo actualizado, asegúrate de esperar la operación de escritura
+        await fs.promises.writeFile(contributionsFilePath, JSON.stringify(existingContributions, null, 2), 'utf8');
+        res.send('Contributions updated successfully.');
+    } catch (error) {
+        console.error('Error processing contributions:', error);
+        res.status(500).send('Error processing contributions.');
+    }
+});
 
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
