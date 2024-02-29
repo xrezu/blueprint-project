@@ -34,7 +34,7 @@ app.post('/api/login', (req: Request, res: Response) => {
             const user = users.find((user: User) => user.username === username && user.password === password);
             if (user) {
                 // Usuario encontrado
-                res.json({ username: user.username, role: user.role });
+                res.json({ id: user.id, username: user.username, role: user.role });
             } else {
                 // Usuario no encontrado
                 res.status(401).json({ error: 'Credenciales incorrectas' });

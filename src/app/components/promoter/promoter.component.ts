@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '@/app/services/data.service';
+import { AuthService } from '@/app/services/auth.service';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Promoter } from '@/app/models/promoter.model';
@@ -18,10 +19,13 @@ export class PromoterComponent implements OnInit {
   promoters: Promoter[] = []; 
   promoterContributions: { contributions: any; id: string; name: string; contactEmail: string; }[] | undefined;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.userId = sessionStorage.getItem('userId');
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.userId = currentUser.id.toString();
+    }
     this.loadPromoters();
   }
 

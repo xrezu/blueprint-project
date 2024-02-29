@@ -1,5 +1,5 @@
 // header.component.ts
-import { Component, ViewChild } from '@angular/core';
+import { Component/*, ViewChild*/ } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '@/app/auth/login/login.component';
 import { AuthService } from '@/app/services/auth.service';
@@ -29,7 +29,7 @@ export class HeaderComponent {
     this.loginFormVisible = !this.loginFormVisible;
   }
 
-  @ViewChild(LoginComponent) loginComponent!: LoginComponent;
+  //@ViewChild(LoginComponent) loginComponent!: LoginComponent;
 
   logout(): void {
     this.isLoggedIn = false;
