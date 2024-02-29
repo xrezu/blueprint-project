@@ -212,7 +212,7 @@ async function readAndParseJSON(filePath: string): Promise<any> {
   }
 
   // Endpoint modificado para cargar contribuciones
-  app.post('/upload-contributions', async (req: Request, res: Response) => {
+  /*app.post('/upload-contributions', async (req: Request, res: Response) => {
     if (!req.files || !req.files.file) {
         return res.status(400).send('No file was uploaded.');
     }
@@ -239,7 +239,7 @@ async function readAndParseJSON(filePath: string): Promise<any> {
         console.error('Error processing contributions:', error);
         res.status(500).send('Error processing contributions.');
     }
-});
+});*/
 
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');

@@ -19,4 +19,32 @@ export class MainComponent implements OnInit {
   toggleChat(): void {
     this.isChatOpen = !this.isChatOpen;
   }
+
+  teamMembers: { name: string, githubProfile: string, profileImage: string }[] = [
+    {
+      name: 'Miguel Martínez',
+      githubProfile: 'https://github.com/trikytrukos',
+      profileImage: '../../../assets/images/profile-pics/miguel-pfp.jpg'
+    },
+    {
+      name: 'Maksym Dovgan',
+      githubProfile: 'https://github.com/xrezu',
+      profileImage: '../../../assets/images/profile-pics/maksym-pfp.jpg'
+    },
+    {
+      name: 'Álvaro Barasona',
+      githubProfile: 'https://github.com/alvarobarasona',
+      profileImage: '../../../assets/images/profile-pics/alvaro-pfp.jpg'
+    },
+    {
+      name: 'Marcos Almorox',
+      githubProfile: 'https://github.com/malmorox',
+      profileImage: '../../../assets/images/profile-pics/marcos-pfp.jpg'
+    },
+    {
+      name: 'Sergio Cáceres',
+      githubProfile: 'https://github.com/Eracres',
+      profileImage: '../../../assets/images/profile-pics/sergio-pfp.jpg'
+    },
+  ];
 }
