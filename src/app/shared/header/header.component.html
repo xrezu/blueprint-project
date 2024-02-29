@@ -5,15 +5,21 @@
   </div>
   <div class="log-zone">
     <ng-container *ngIf="!isLoggedIn; else logoutButton">
-      <button (click)="toggleLoginForm()" class="uppercase bg-sky-100 text-sky-700 px-3 py-2 rounded-md font-bold hover:bg-sky-300 hover:text-sky-950"> Iniciar sesión </button>
+      <button (click)="toggleLoginForm()" class="flex items-center uppercase bg-sky-100 text-sky-700 px-3 py-2 rounded-md font-bold hover:bg-sky-300 hover:text-sky-950"> 
+        Iniciar sesión&nbsp;
+        <img src="../../../assets/images/icons/dark/login_blue.svg" class="w-3"/>
+      </button>
     </ng-container>
     <ng-template #logoutButton>
-      <button (click)="logout()" class="uppercase bg-sky-100 text-sky-700 px-3 py-2 rounded-md font-bold hover:bg-sky-300 hover:text-sky-950"> Cerrar sesión </button>
+      <button (click)="logout()" class="flex items-center uppercase bg-sky-100 text-sky-700 px-3 py-2 rounded-md font-bold hover:bg-sky-300 hover:text-sky-950">
+        Cerrar sesión&nbsp;
+        <img src="../../../assets/images/icons/dark/logout_blue.svg" class="w-3"/>
+      </button>
     </ng-template>
   </div>
 </header>
 
 <!-- login desplegable cuando pulsamos el botón de 'Iniciar sesión' -->
-<div *ngIf="!isLoggedIn && loginFormVisible" class="login-dropdown fixed top-20 right-2 flex justify-center items-center bg-blue-200 z-20">
+<div *ngIf="!isLoggedIn && loginFormVisible" class="login-dropdown fixed top-20 right-2 flex justify-center items-center rounded-md bg-sky-200 z-20">
   <app-login #loginForm></app-login>
 </div>

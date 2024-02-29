@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
+//import fileUpload from 'express-fileupload';
 import { User } from '../src/app/models/user.model';
 //import session from 'express-session';
 import path from 'path';
@@ -11,12 +12,14 @@ const PORT = 3000;
 // Habilitar CORS y parseo de JSON para las peticiones entrantes
 app.use(cors());
 app.use(express.json());
+//app.use(fileUpload());
 
 // Ruta absoluta del archivo de usuarios
 const usersFileJSON = path.resolve(__dirname, 'src/assets/json/users.json');
 // Ruta absoluta del archivo de reclamaciones, ajustar según la ubicación real
 const claimsFilePath = path.resolve(__dirname, 'src/assets/json/claims.json');
 const faqFilePath = path.resolve(__dirname, 'src/assets/json/faq.json');
+const contributionsFilePath = path.resolve(__dirname, 'src/assets/json/contributions.json');
 
 // Ruta para manejar el inicio de sesión
 app.post('/api/login', (req: Request, res: Response) => {
@@ -34,7 +37,7 @@ app.post('/api/login', (req: Request, res: Response) => {
             const user = users.find((user: User) => user.username === username && user.password === password);
             if (user) {
                 // Usuario encontrado
-                res.json({ username: user.username, role: user.role });
+                res.json({ id: user.id, username: user.username, role: user.role });
             } else {
                 // Usuario no encontrado
                 res.status(401).json({ error: 'Credenciales incorrectas' });
@@ -186,6 +189,39 @@ app.post('/faq', (req: Request, res: Response) => {
         }
     });
 });
+
+/*app.post('/upload-contributions', (req, res) => {
+    if (!req.files || !req.files.file) {
+        return res.status(400).send('No file was uploaded.');
+    }
+
+    // Acceder al archivo subido
+    const uploadedFile = req.files.file;
+
+    // Leer el contenido del archivo subido y parsearlo a JSON
+    const newContributions = JSON.parse(uploadedFile.data.toString());
+
+    // Leer el archivo existente, combinar el contenido y escribirlo de nuevo
+    fs.readFile(contributionsFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading contributions file:', err);
+            return res.status(500).send('Error reading contributions file.');
+        }
+
+        const existingContributions = JSON.parse(data);
+        // Combinar el contenido. Asumiendo que ambos tienen una estructura similar
+        existingContributions.contributions.push(...newContributions.contributions);
+
+        // Escribir el archivo actualizado
+        fs.writeFile(contributionsFilePath, JSON.stringify(existingContributions, null, 2), (err) => {
+            if (err) {
+                console.error('Error writing to contributions file:', err);
+                return res.status(500).send('Error writing to contributions file.');
+            }
+            res.send('Contributions updated successfully.');
+        });
+    });
+});*/
 
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');

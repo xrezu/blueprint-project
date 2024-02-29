@@ -1,8 +1,8 @@
 <!-- login.component.html -->
-<div class="login absolute p-10">
+<div class="login p-8">
   <form class="flex flex-col w-full" (submit)="validateForm($event)" method="post">
     <div class="username-zone mb-4">
-      <label class="block mb-2" for="username">
+      <label class="mb-2" for="username">
         Nombre de usuario:
       </label> <br>
       <input
@@ -10,11 +10,12 @@
         [(ngModel)]="username"
         id="username"
         name="username"
+        (focus)="onInputFocus()"
         class="px-4 py-2 border rounded-md w-full"
       />
     </div>
-    <div class="password-zone mb-4">
-      <label class="block mb-2" for="password">
+    <div class="password-zone mb-6">
+      <label class="mb-2" for="password">
         Contraseña:
       </label> <br>
       <input
@@ -22,13 +23,14 @@
         [(ngModel)]="password"
         id="password"
         name="password"
+        (focus)="onInputFocus()"
         class="px-4 py-2 border rounded-md w-full"
       />
     </div>
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer"> Entrar </button>
+    <button type="submit" class="uppercase bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:bg-sky-700 cursor-pointer"> Entrar </button>
   </form>
   <!-- Mostramos un mensaje de error si existe -->
-  <div *ngIf="errorMessage" class="error-alert-zone">
-    <span id="error-message"> {{ errorMessage }} </span>
+  <div *ngIf="errorMessage && !inputFocused" class="error-alert-zone mt-4 text-center">
+    <span class="error-message text-sky-950 font-medium"> {{ errorMessage }} </span>
   </div>
 </div>
