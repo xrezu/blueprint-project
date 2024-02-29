@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
-import fileUpload from 'express-fileupload';
+//import fileUpload from 'express-fileupload';
 import { User } from '../src/app/models/user.model';
 //import session from 'express-session';
 import path from 'path';
@@ -13,7 +13,7 @@ const PORT = 3000;
 // Habilitar CORS y parseo de JSON para las peticiones entrantes
 app.use(cors());
 app.use(express.json());
-app.use(fileUpload());
+//app.use(fileUpload());
 
 // Ruta absoluta del archivo de usuarios
 const usersFileJSON = path.resolve(__dirname, 'src/assets/json/users.json');
@@ -38,7 +38,7 @@ app.post('/api/login', (req: Request, res: Response) => {
             const user = users.find((user: User) => user.username === username && user.password === password);
             if (user) {
                 // Usuario encontrado
-                res.json({ username: user.username, role: user.role });
+                res.json({ id: user.id, username: user.username, role: user.role });
             } else {
                 // Usuario no encontrado
                 res.status(401).json({ error: 'Credenciales incorrectas' });

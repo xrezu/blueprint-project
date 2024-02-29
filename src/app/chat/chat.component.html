@@ -10,7 +10,7 @@
   <!-- Área de mensajes -->
   <div class="flex-grow overflow-auto p-4 space-y-2 bg-secondary">
     <div *ngFor="let message of messages" 
-         [class]="message.sender === 'user' ? 'text-right' : 'text-left'">
+        [class]="message.sender === 'user' ? 'text-right' : 'text-left'">
       <span [class]="message.sender === 'user' ? 'bg-detail' : 'bg-primary'" 
             class="inline-block rounded px-3 py-1 text-white">
         {{ message.message }}

@@ -24,9 +24,8 @@ export class AuthService {
       .pipe(
         map(user => {
           if (user && user.username && user.role) {
-            console.log("Usuario autenticado:", user);
-            sessionStorage.setItem('userRole', user.role);
-            const currentUser = { username: user.username, role: user.role };
+            //console.log("Usuario autenticado:", user);
+            const currentUser = { id: user.id, username: user.username, role: user.role };
             sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
             this.isLoggedInSubject.next(true);
           }
@@ -43,7 +42,7 @@ export class AuthService {
 
   getUserRole(): string | null {
     const currentUser = this.getCurrentUser();
-    console.log("Rol del usuario obtenido:", currentUser?.role);
+    //console.log("Rol del usuario obtenido:", currentUser?.role);
     return currentUser?.role || null;
   }
 
@@ -52,7 +51,7 @@ export class AuthService {
     return !!this.getCurrentUser();
   }
 
-  // Agregar este método para exponer el observable
+  // Función para obtener el estado de autenticación y usarla en otros componentes para ver el estado en tiempo real
   isLoggedIn$(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
   }

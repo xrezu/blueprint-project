@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../../services/data.service';
-import { UserContribution } from '../../models/contributions.interface';
+import { DataService } from '@/app/services/data.service';
+import { AuthService } from '@/app/services/auth.service';
+import { UserContribution } from '@/app/models/contributions.interface';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,10 +17,13 @@ export class CitizenComponent implements OnInit {
   userId: string | null = null;
   contributions: any[] = []; // Ajustado para incluir información adicional
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private authService: AuthService) {}
 
   ngOnInit() {
-    this.userId = sessionStorage.getItem('userId');
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.userId = currentUser.id.toString();
+    }
     this.loadContributions();
   }
 
