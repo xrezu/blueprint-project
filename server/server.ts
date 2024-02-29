@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import fs from 'fs';
-import fileUpload from 'express-fileupload';
+//import fileUpload from 'express-fileupload';
 import { User } from '../src/app/models/user.model';
 //import session from 'express-session';
 import path from 'path';
@@ -12,7 +12,7 @@ const PORT = 3000;
 // Habilitar CORS y parseo de JSON para las peticiones entrantes
 app.use(cors());
 app.use(express.json());
-app.use(fileUpload());
+//app.use(fileUpload());
 
 // Ruta absoluta del archivo de usuarios
 const usersFileJSON = path.resolve(__dirname, 'src/assets/json/users.json');
@@ -190,7 +190,7 @@ app.post('/faq', (req: Request, res: Response) => {
     });
 });
 
-app.post('/upload-contributions', (req, res) => {
+/*app.post('/upload-contributions', (req, res) => {
     if (!req.files || !req.files.file) {
         return res.status(400).send('No file was uploaded.');
     }
@@ -221,7 +221,7 @@ app.post('/upload-contributions', (req, res) => {
             res.send('Contributions updated successfully.');
         });
     });
-});
+});*/
 
 // Directorio donde se encuentran los archivos estáticos de Angular
 const angularDistPath = path.resolve(__dirname, '../dist/blueprint-project/browser');
